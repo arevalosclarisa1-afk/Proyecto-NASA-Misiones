@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title data-es="Voyager 1 + 2 | NASA Mission Control" data-en="Voyager 1 + 2 | NASA Mission Control">
+    Voyager 1 + 2 | NASA Mission Control
+  </title>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .hero-voyager {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,11,18,.97) 0%, rgba(5,11,18,.84) 45%, rgba(5,11,18,.62) 100%),
+        linear-gradient(rgba(5,11,18,.25), rgba(5,11,18,.88)),
+        url("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA14111.jpg") center right / cover no-repeat;
+    }
+
+    .hero-voyager::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0 70%, rgba(57,217,255,.08) 70%, transparent 70.2%),
+        repeating-linear-gradient(90deg, transparent 0, transparent 79px, rgba(57,217,255,.035) 80px),
+        repeating-linear-gradient(0deg, transparent 0, transparent 49px, rgba(57,217,255,.035) 50px);
+      pointer-events: none;
+    }
+
+    .hero-voyager .hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-voyager h1 {
+      max-width: 900px;
+      text-shadow: 0 0 30px rgba(57,217,255,.15);
+    }
+
+    .hero-voyager .lead {
+      max-width: 760px;
+    }
+
+    .mission-photo {
+      margin: 30px 0;
+      border: 1px solid var(--line);
+      background: #02070c;
+      box-shadow: var(--glow);
+      overflow: hidden;
+    }
+
+    .mission-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 650px;
+      object-fit: cover;
+    }
+
+    .photo-info {
+      padding: 14px 18px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .photo-info strong {
+      color: var(--cyan);
+    }
+
+    .photo-credit {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 8px;
+    }
+
+    .photo-highlight {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(57,217,255,.12);
+    }
+
+    .photo-highlight img {
+      max-height: 700px;
+      object-fit: contain;
+    }
+
+    .gallery-intro {
+      max-width: 850px;
+      margin: 0 auto 35px;
+      text-align: center;
+    }
+
+    .museum {
+      margin-top: 25px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(11,24,35,.98), rgba(5,11,18,.98));
+      box-shadow: var(--glow);
+    }
+
+    .museum-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .museum-code {
+      font-family: monospace;
+      font-size: .75rem;
+      color: var(--green);
+      letter-spacing: 1px;
+    }
+
+    .museum-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .art-piece {
+      background: #03080d;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .art-piece:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+    }
+
+    .art-piece.large {
+      grid-column: span 2;
+    }
+
+    .art-piece img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .art-piece.large img {
+      height: 470px;
+      object-fit: cover;
+    }
+
+    .art-caption {
+      padding: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .art-number {
+      display: block;
+      font-family: monospace;
+      color: var(--green);
+      font-size: .72rem;
+      letter-spacing: 1px;
+      margin-bottom: 7px;
+    }
+
+    .art-caption h3 {
+      margin: 0 0 7px;
+      color: var(--text);
+    }
+
+    .art-caption p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .museum-note {
+      margin-top: 22px;
+      padding: 18px;
+      border-left: 2px solid var(--cyan);
+      background: rgba(57,217,255,.035);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .dual-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .signal-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+      font-family: monospace;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .signal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(101,230,165,.5);
+      flex: 0 0 auto;
+    }
+
+    @media(max-width:750px) {
+      .museum-grid,
+      .dual-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .art-piece.large {
+        grid-column: span 1;
+      }
+
+      .art-piece img,
+      .art-piece.large img {
+        height: auto;
+        max-height: 450px;
+      }
+
+      .hero-voyager {
+        background-position: 65% center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="nav">
+
+  <a class="logo" href="index.html">
+    NASA // MISSION CONTROL
+  </a>
+
+  <a href="spirit-opportunity.html"
+     data-es="Spirit + Opportunity"
+     data-en="Spirit + Opportunity">
+    Spirit + Opportunity
+  </a>
+
+  <a href="voyager.html"
+     data-es="Voyager"
+     data-en="Voyager">
+    Voyager
+  </a>
+
+  <a href="curiosity.html"
+     data-es="Curiosity"
+     data-en="Curiosity">
+    Curiosity
+  </a>
+
+  <a href="pioneer.html"
+     data-es="Pioneer"
+     data-en="Pioneer">
+    Pioneer
+  </a>
+
+  <button class="lang" id="langButton">
+    🇺🇸 English
+  </button>
+
+</nav>
+
+
+<header class="hero hero-voyager">
+
+  <div class="hero-inner">
+
+    <span class="badge"
+          data-es="OPERACIONES EN ESPACIO PROFUNDO"
+          data-en="DEEP SPACE OPERATIONS">
+      OPERACIONES EN ESPACIO PROFUNDO
+    </span>
+
+    <h1>
+      VOYAGER 1<br>
+      + VOYAGER 2
+    </h1>
+
+    <p class="lead"
+       data-es="Dos sondas. Cuatro planetas gigantes. Décadas de viaje. Y una colección de imágenes que cambió para siempre nuestra forma de mirar el sistema solar."
+       data-en="Two probes. Four giant planets. Decades of travel. And a collection of images that forever changed the way we see the solar system.">
+      Dos sondas. Cuatro planetas gigantes. Décadas de viaje. Y una colección de imágenes que cambió para siempre nuestra forma de mirar el sistema solar.
+    </p>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+
+  <section class="card">
+
+    <h2 data-es="ESTADO DE LA MISIÓN" data-en="MISSION STATUS">
+      ESTADO DE LA MISIÓN
+    </h2>
+
+    <div class="grid">
+
+      <div>
+        <span class="small"
+              data-es="AÑO DE LANZAMIENTO"
+              data-en="LAUNCH YEAR">
+          AÑO DE LANZAMIENTO
+        </span>
+
+        <div class="stat">
+          1977
+        </div>
+      </div>
+
+
+      <div>
+        <span class="small"
+              data-es="PLANETAS GIGANTES VISITADOS"
+              data-en="GIANT PLANETS VISITED">
+          PLANETAS GIGANTES VISITADOS
+        </span>
+
+        <div class="stat">
+          04
+        </div>
+      </div>
+
+
+      <div>
+        <span class="small"
+              data-es="VOYAGER 1"
+              data-en="VOYAGER 1">
+          VOYAGER 1
+        </span>
+
+        <div class="stat">
+          2012
+        </div>
+
+        <span class="small"
+              data-es="ESPACIO INTERESTELAR"
+              data-en="INTERSTELLAR SPACE">
+          ESPACIO INTERESTELAR
+        </span>
+      </div>
+
+
+      <div>
+        <span class="small"
+              data-es="VOYAGER 2"
+              data-en="VOYAGER 2">
+          VOYAGER 2
+        </span>
+
+        <div class="stat">
+          2018
+        </div>
+
+        <span class="small"
+              data-es="ESPACIO INTERESTELAR"
+              data-en="INTERSTELLAR SPACE">
+          ESPACIO INTERESTELAR
+        </span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="VISTA GENERAL DE LA MISIÓN"
+          data-en="MISSION OVERVIEW">
+      VISTA GENERAL DE LA MISIÓN
+    </span>
+
+    <h2 data-es="El viaje que no debía durar tanto" data-en="The journey that was not supposed to last this long">
+      El viaje que no debía durar tanto
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="En 1977, la NASA lanzó dos sondas espaciales llamadas Voyager 1 y Voyager 2. Su objetivo inicial era estudiar de cerca los planetas gigantes del sistema solar. Una alineación poco común de los planetas permitió planificar trayectorias que aprovecharían la gravedad de cada mundo para impulsar a las sondas hacia el siguiente."
+       data-en="In 1977, NASA launched two spacecraft called Voyager 1 and Voyager 2. Their original goal was to study the giant planets of the solar system up close. A rare planetary alignment made it possible to plan trajectories that could use the gravity of each world to help propel the probes toward the next one.">
+      En 1977, la NASA lanzó dos sondas espaciales llamadas Voyager 1 y Voyager 2. Su objetivo inicial era estudiar de cerca los planetas gigantes del sistema solar. Una alineación poco común de los planetas permitió planificar trayectorias que aprovecharían la gravedad de cada mundo para impulsar a las sondas hacia el siguiente.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Lo extraordinario es que la misión no terminó después de esos encuentros. Las Voyager continuaron funcionando durante décadas, enviando datos desde regiones cada vez más lejanas del Sol."
+       data-en="What makes the mission extraordinary is that it did not end after those encounters. The Voyagers continued operating for decades, sending data from regions increasingly farther from the Sun.">
+      Lo extraordinario es que la misión no terminó después de esos encuentros. Las Voyager continuaron funcionando durante décadas, enviando datos desde regiones cada vez más lejanas del Sol.
+    </p>
+
+    <div class="signal-line">
+      <span class="signal-dot"></span>
+      <span data-es="TRANSMISIÓN HISTÓRICA — DOS SONDAS — UN VIAJE" data-en="HISTORICAL TRANSMISSION — TWO PROBES — ONE JOURNEY">
+        TRANSMISIÓN HISTÓRICA — DOS SONDAS — UN VIAJE
+      </span>
+    </div>
+
+  </section>
+
+
+  <section class="mission-photo photo-highlight">
+
+    <img
+      src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA14111.jpg"
+      alt="Representación de la sonda Voyager">
+
+    <div class="photo-info">
+      <span>
+        <strong data-es="OBJETO:" data-en="OBJECT:">OBJETO:</strong>
+        <span data-es="Sonda Voyager" data-en="Voyager spacecraft">
+          Sonda Voyager
+        </span>
+      </span>
+
+      <span>
+        <strong data-es="FUENTE:" data-en="SOURCE:">FUENTE:</strong>
+        NASA/JPL-Caltech
+      </span>
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="VOYAGER 01"
+          data-en="VOYAGER 01">
+      VOYAGER 01
+    </span>
+
+    <h2>Voyager 1</h2>
+
+    <p style="text-align: justify;"
+       data-es="Voyager 1 fue lanzada el 5 de septiembre de 1977. Su trayectoria permitió que llegara antes que Voyager 2 a Júpiter y Saturno."
+       data-en="Voyager 1 launched on September 5, 1977. Its trajectory allowed it to reach Jupiter and Saturn before Voyager 2.">
+      Voyager 1 fue lanzada el 5 de septiembre de 1977. Su trayectoria permitió que llegara antes que Voyager 2 a Júpiter y Saturno.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="En 1979 observó Júpiter y sus lunas. Entre sus descubrimientos más sorprendentes estuvo el volcanismo activo de Ío. En 1980 llegó a Saturno y estudió sus anillos y Titán."
+       data-en="In 1979 it observed Jupiter and its moons. One of its most surprising discoveries was active volcanism on Io. In 1980 it reached Saturn and studied its rings and Titan.">
+      En 1979 observó Júpiter y sus lunas. Entre sus descubrimientos más sorprendentes estuvo el volcanismo activo de Ío. En 1980 llegó a Saturno y estudió sus anillos y Titán.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Después de Saturno, Voyager 1 tomó una trayectoria que la llevó hacia el exterior del sistema solar. En agosto de 2012 cruzó la heliopausa y pasó al espacio interestelar."
+       data-en="After Saturn, Voyager 1 followed a trajectory that carried it toward the outer solar system. In August 2012 it crossed the heliopause and entered interstellar space.">
+      Después de Saturno, Voyager 1 tomó una trayectoria que la llevó hacia el exterior del sistema solar. En agosto de 2012 cruzó la heliopausa y pasó al espacio interestelar.
+    </p>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="VOYAGER 01 // CRONOLOGÍA"
+          data-en="VOYAGER 01 // TIMELINE">
+      VOYAGER 01 // CRONOLOGÍA
+    </span>
+
+    <h2 data-es="Ruta de Voyager 1" data-en="Voyager 1 Route">
+      Ruta de Voyager 1
+    </h2>
+
+    <div class="timeline">
+
+      <article>
+        <h3>1977 — LAUNCH</h3>
+        <p data-es="Voyager 1 comienza su viaje desde la Tierra."
+           data-en="Voyager 1 begins its journey from Earth.">
+          Voyager 1 comienza su viaje desde la Tierra.
+        </p>
+      </article>
+
+      <article>
+        <h3>1979 — JUPITER</h3>
+        <p data-es="Primer gran encuentro planetario. La sonda observa Júpiter y descubre volcanismo activo en Ío."
+           data-en="First major planetary encounter. The probe observes Jupiter and discovers active volcanism on Io.">
+          Primer gran encuentro planetario. La sonda observa Júpiter y descubre volcanismo activo en Ío.
+        </p>
+      </article>
+
+      <article>
+        <h3>1980 — SATURN</h3>
+        <p data-es="Estudia Saturno, sus anillos y la luna Titán."
+           data-en="Studies Saturn, its rings, and the moon Titan.">
+          Estudia Saturno, sus anillos y la luna Titán.
+        </p>
+      </article>
+
+      <article>
+        <h3>2012 — INTERSTELLAR SPACE</h3>
+        <p data-es="Voyager 1 cruza la heliopausa y comienza a estudiar el entorno interestelar."
+           data-en="Voyager 1 crosses the heliopause and begins studying the interstellar environment.">
+          Voyager 1 cruza la heliopausa y comienza a estudiar el entorno interestelar.
+        </p>
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <section class="mission-photo">
+
+    <img
+      src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA01512.jpg"
+      alt="Júpiter fotografiado por Voyager 1">
+
+    <div class="photo-info">
+      <span>
+        <strong data-es="VOYAGER 1:" data-en="VOYAGER 1:">
+          VOYAGER 1:
+        </strong>
+
+        <span data-es="Júpiter y la Gran Mancha Roja"
+              data-en="Jupiter and the Great Red Spot">
+          Júpiter y la Gran Mancha Roja
+        </span>
+      </span>
+
+      <span>NASA/JPL</span>
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="VOYAGER 02"
+          data-en="VOYAGER 02">
+      VOYAGER 02
+    </span>
+
+    <h2>Voyager 2</h2>
+
+    <p style="text-align: justify;"
+       data-es="Voyager 2 fue lanzada el 20 de agosto de 1977. Su trayectoria fue diferente a la de su hermana y permitió una hazaña que ninguna otra nave espacial ha repetido: visitar de cerca los cuatro planetas gigantes."
+       data-en="Voyager 2 launched on August 20, 1977. Its trajectory was different from its sister's and allowed an achievement no other spacecraft has repeated: visiting all four giant planets up close.">
+      Voyager 2 fue lanzada el 20 de agosto de 1977. Su trayectoria fue diferente a la de su hermana y permitió una hazaña que ninguna otra nave espacial ha repetido: visitar de cerca los cuatro planetas gigantes.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Después de Júpiter y Saturno, Voyager 2 continuó hacia Urano. En 1986 se convirtió en la primera nave espacial en realizar un sobrevuelo de ese planeta. En 1989 hizo lo mismo con Neptuno."
+       data-en="After Jupiter and Saturn, Voyager 2 continued toward Uranus. In 1986 it became the first spacecraft to fly past that planet. In 1989 it did the same with Neptune.">
+      Después de Júpiter y Saturno, Voyager 2 continuó hacia Urano. En 1986 se convirtió en la primera nave espacial en realizar un sobrevuelo de ese planeta. En 1989 hizo lo mismo con Neptuno.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="En noviembre de 2018, Voyager 2 cruzó la heliopausa y comenzó a explorar el espacio interestelar."
+       data-en="In November 2018, Voyager 2 crossed the heliopause and began exploring interstellar space.">
+      En noviembre de 2018, Voyager 2 cruzó la heliopausa y comenzó a explorar el espacio interestelar.
+    </p>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="VOYAGER 02 // CRONOLOGÍA"
+          data-en="VOYAGER 02 // TIMELINE">
+      VOYAGER 02 // CRONOLOGÍA
+    </span>
+
+    <h2 data-es="La gran ruta" data-en="The Grand Route">
+      La gran ruta
+    </h2>
+
+    <div class="timeline">
+
+      <article>
+        <h3>1977 — LAUNCH</h3>
+        <p data-es="Voyager 2 inicia su viaje desde la Tierra."
+           data-en="Voyager 2 begins its journey from Earth.">
+          Voyager 2 inicia su viaje desde la Tierra.
+        </p>
+      </article>
+
+      <article>
+        <h3>1979 — JUPITER</h3>
+        <p data-es="Primer encuentro con Júpiter."
+           data-en="First encounter with Jupiter.">
+          Primer encuentro con Júpiter.
+        </p>
+      </article>
+
+      <article>
+        <h3>1981 — SATURN</h3>
+        <p data-es="La sonda continúa su viaje hacia el sistema exterior."
+           data-en="The probe continues its journey toward the outer solar system.">
+          La sonda continúa su viaje hacia el sistema exterior.
+        </p>
+      </article>
+
+      <article>
+        <h3>1986 — URANUS</h3>
+        <p data-es="Primera nave espacial en visitar Urano."
+           data-en="First spacecraft to visit Uranus.">
+          Primera nave espacial en visitar Urano.
+        </p>
+      </article>
+
+      <article>
+        <h3>1989 — NEPTUNE</h3>
+        <p data-es="Primera nave espacial en visitar Neptuno."
+           data-en="First spacecraft to visit Neptune.">
+          Primera nave espacial en visit Neptune.
+        </p>
+      </article>
+
+      <article>
+        <h3>2018 — INTERSTELLAR SPACE</h3>
+        <p data-es="Voyager 2 cruza la heliopausa y entra en el espacio interestelar."
+           data-en="Voyager 2 crosses the heliopause and enters interstellar space.">
+          Voyager 2 cruza la heliopausa y entra en el espacio interestelar.
+        </p>
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <div class="dual-panel">
+
+    <section class="mission-photo">
+
+      <img
+        src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA00400.jpg"
+        alt="Saturno fotografiado por Voyager 2">
+
+      <div class="photo-info">
+        <span>
+          <strong data-es="VOYAGER 2:" data-en="VOYAGER 2:">
+            VOYAGER 2:
+          </strong>
+
+          <span data-es="Saturno y sus lunas"
+                data-en="Saturn and its moons">
+            Saturno y sus lunas
+          </span>
+        </span>
+
+        <span>NASA/JPL/USGS</span>
+      </div>
+
+    </section>
+
+
+    <section class="mission-photo">
+
+      <img
+        src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA18182.jpg"
+        alt="Urano fotografiado por Voyager 2">
+
+      <div class="photo-info">
+        <span>
+          <strong data-es="VOYAGER 2:" data-en="VOYAGER 2:">
+            VOYAGER 2:
+          </strong>
+
+          <span data-es="Urano, 1986"
+                data-en="Uranus, 1986">
+            Urano, 1986
+          </span>
+        </span>
+
+        <span>NASA/JPL-Caltech</span>
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <section class="callout">
+
+    <span class="badge"
+          data-es="REGISTRO DE DESCUBRIMIENTOS"
+          data-en="DISCOVERY LOG">
+      REGISTRO DE DESCUBRIMIENTOS
+    </span>
+
+    <h2 data-es="Un sistema solar que nadie conocía así" data-en="A solar system no one had seen like this">
+      Un sistema solar que nadie conocía así
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="Antes de Voyager, los planetas gigantes y sus lunas todavía escondían enormes cantidades de información. Las sondas revelaron volcanes activos, atmósferas complejas, anillos, lunas y fenómenos que no podían observarse desde la Tierra con ese nivel de detalle."
+       data-en="Before Voyager, the giant planets and their moons still hid enormous amounts of information. The probes revealed active volcanoes, complex atmospheres, rings, moons, and phenomena that could not be observed from Earth with that level of detail.">
+      Antes de Voyager, los planetas gigantes y sus lunas todavía escondían enormes cantidades de información. Las sondas revelaron volcanes activos, atmósferas complejas, anillos, lunas y fenómenos que no podían observarse desde la Tierra con ese nivel de detalle.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Y hay algo todavía más importante: muchas de esas imágenes no fueron creadas para decorar. Eran datos científicos. Hoy también son parte de nuestra memoria visual del sistema solar."
+       data-en="And there is something even more important: many of those images were not created as decoration. They were scientific data. Today they are also part of our visual memory of the solar system.">
+      Y hay algo todavía más importante: muchas de esas imágenes no fueron creadas para decorar. Eran datos científicos. Hoy también son parte de nuestra memoria visual del sistema solar.
+    </p>
+
+  </section>
+
+
+  <section class="museum">
+
+    <div class="museum-header">
+
+      <div>
+        <span class="badge"
+              data-es="ARCHIVO VISUAL"
+              data-en="VISUAL ARCHIVE">
+          ARCHIVO VISUAL
+        </span>
+
+        <h2 data-es="VOYAGER // MUSEO DE ARTE DE ESPACIO PROFUNDO"
+            data-en="VOYAGER // DEEP SPACE ART MUSEUM">
+          VOYAGER // MUSEO DE ARTE DE ESPACIO PROFUNDO
+        </h2>
+      </div>
+
+      <span class="museum-code">
+        ARCHIVE / VGR / 1977—∞
+      </span>
+
+    </div>
+
+    <div class="gallery-intro">
+
+      <p data-es="Estas imágenes fueron capturadas por las propias Voyager durante su viaje. Lo que comenzó como información científica terminó convirtiéndose también en una colección visual única: mundos vistos de cerca por primera vez."
+         data-en="These images were captured by the Voyagers themselves during their journey. What began as scientific information also became a unique visual collection: worlds seen up close for the first time.">
+        Estas imágenes fueron capturadas por las propias Voyager durante su viaje. Lo que comenzó como información científica terminó convirtiéndose también en una colección visual única: mundos vistos de cerca por primera vez.
+      </p>
+
+    </div>
+
+
+    <div class="museum-grid">
+
+
+      <article class="art-piece large">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA01512.jpg"
+          alt="Júpiter visto por Voyager 1">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 001 // VOYAGER 1"
+                data-en="PIECE 001 // VOYAGER 1">
+            PIEZA 001 // VOYAGER 1
+          </span>
+
+          <h3 data-es="Júpiter: un gigante en movimiento"
+              data-en="Jupiter: A Giant in Motion">
+            Júpiter: un gigante en movimiento
+          </h3>
+
+          <p data-es="La atmósfera de Júpiter revela enormes estructuras y tormentas. Esta imagen fue tomada por Voyager 1 en 1979."
+             data-en="Jupiter's atmosphere reveals enormous structures and storms. This image was captured by Voyager 1 in 1979.">
+            La atmósfera de Júpiter revela enormes estructuras y tormentas. Esta imagen fue tomada por Voyager 1 en 1979.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="art-piece">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA00400.jpg"
+          alt="Saturno visto por Voyager 2">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 002 // VOYAGER 2"
+                data-en="PIECE 002 // VOYAGER 2">
+            PIEZA 002 // VOYAGER 2
+          </span>
+
+          <h3 data-es="Saturno y sus anillos"
+              data-en="Saturn and Its Rings">
+            Saturno y sus anillos
+          </h3>
+
+          <p data-es="Una composición basada en imágenes de Voyager 2 muestra Saturno, sus anillos y varias de sus lunas."
+             data-en="A composition based on Voyager 2 images shows Saturn, its rings, and several of its moons.">
+            Una composición basada en imágenes de Voyager 2 muestra Saturno, sus anillos y varias de sus lunas.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="art-piece">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA18182.jpg"
+          alt="Urano visto por Voyager 2">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 003 // VOYAGER 2"
+                data-en="PIECE 003 // VOYAGER 2">
+            PIEZA 003 // VOYAGER 2
+          </span>
+
+          <h3 data-es="Urano: un mundo azul"
+              data-en="Uranus: A Blue World">
+            Urano: un mundo azul
+          </h3>
+
+          <p data-es="Voyager 2 obtuvo esta imagen de Urano durante su encuentro de 1986."
+             data-en="Voyager 2 captured this image of Uranus during its 1986 encounter.">
+            Voyager 2 obtuvo esta imagen de Urano durante su encuentro de 1986.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="art-piece">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA02245.jpg"
+          alt="Neptuno visto por Voyager 2">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 004 // VOYAGER 2"
+                data-en="PIECE 004 // VOYAGER 2">
+            PIEZA 004 // VOYAGER 2
+          </span>
+
+          <h3 data-es="Neptuno: atmósfera en movimiento"
+              data-en="Neptune: An Atmosphere in Motion">
+            Neptuno: atmósfera en movimiento
+          </h3>
+
+          <p data-es="La cámara de Voyager 2 captó estructuras atmosféricas dinámicas durante su encuentro con Neptuno."
+             data-en="Voyager 2's camera captured dynamic atmospheric structures during its encounter with Neptune.">
+            La cámara de Voyager 2 captó estructuras atmosféricas dinámicas durante su encuentro con Neptuno.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="art-piece">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA02212.jpg"
+          alt="Tritón visto por Voyager 2">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 005 // VOYAGER 2"
+                data-en="PIECE 005 // VOYAGER 2">
+            PIEZA 005 // VOYAGER 2
+          </span>
+
+          <h3 data-es="Tritón: el mundo helado"
+              data-en="Triton: The Frozen World">
+            Tritón: el mundo helado
+          </h3>
+
+          <p data-es="Voyager 2 fotografió Tritón en 1989, revelando una luna con características que despertaron nuevas preguntas científicas."
+             data-en="Voyager 2 photographed Triton in 1989, revealing a moon with features that raised new scientific questions.">
+            Voyager 2 fotografió Tritón en 1989, revelando una luna con características que despertaron nuevas preguntas científicas.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="art-piece large">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA14113.jpg"
+          alt="Golden Record y Voyager">
+
+        <div class="art-caption">
+
+          <span class="art-number"
+                data-es="PIEZA 006 // MENSAJE DE LA TIERRA"
+                data-en="PIECE 006 // MESSAGE FROM EARTH">
+            PIEZA 006 // MENSAJE DE LA TIERRA
+          </span>
+
+          <h3 data-es="El objeto que viaja con ellas"
+              data-en="The Object Traveling With Them">
+            El objeto que viaja con ellas
+          </h3>
+
+          <p data-es="Cada Voyager lleva un Disco de Oro con sonidos, saludos, música e imágenes seleccionadas para representar la vida y la diversidad de la Tierra."
+             data-en="Each Voyager carries a Golden Record containing sounds, greetings, music, and images selected to represent life and the diversity of Earth.">
+            Cada Voyager lleva un Disco de Oro con sonidos, saludos, música e imágenes seleccionadas para representar la vida y la diversidad de la Tierra.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="museum-note"
+         data-es="NOTA DEL CURADOR: estas imágenes no son fotografías artísticas en el sentido tradicional. Son registros científicos obtenidos durante encuentros que ocurrieron hace décadas. Pero cuando las observamos hoy, también cuentan una historia visual: la de dos pequeñas máquinas que llevaron nuestros ojos mucho más lejos."
+         data-en="CURATOR'S NOTE: these images are not artistic photographs in the traditional sense. They are scientific records obtained during encounters that happened decades ago. But when we look at them today, they also tell a visual story: that of two small machines that carried our eyes much farther.">
+      NOTA DEL CURADOR: estas imágenes no son fotografías artísticas en el sentido tradicional. Son registros científicos obtenidos durante encuentros que ocurrieron hace décadas. Pero cuando las observamos hoy, también cuentan una historia visual: la de dos pequeñas máquinas que llevaron nuestros ojos mucho más lejos.
+    </div>
+
+  </section>
+
+
+  <section class="callout">
+
+    <span class="badge"
+          data-es="MENSAJE DESDE LA TIERRA"
+          data-en="MESSAGE FROM EARTH">
+      MENSAJE DESDE LA TIERRA
+    </span>
+
+    <h2>The Golden Record</h2>
+
+    <p style="text-align: justify;"
+       data-es="Las Voyager llevan consigo un mensaje destinado a cualquier posible observador que pudiera encontrarlas en un futuro lejano."
+       data-en="The Voyagers carry a message intended for any possible observer who might find them in the distant future.">
+      Las Voyager llevan consigo un mensaje destinado a cualquier posible observador que pudiera encontrarlas en un futuro lejano.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="El Disco de Oro contiene sonidos de la Tierra, saludos en diferentes idiomas, música e imágenes que representan la vida y la diversidad de nuestro planeta."
+       data-en="The Golden Record contains sounds from Earth, greetings in different languages, music, and images representing life and the diversity of our planet.">
+      El Disco de Oro contiene sonidos de la Tierra, saludos en diferentes idiomas, música e imágenes que representan la vida y la diversidad de nuestro planeta.
+    </p>
+
+  </section>
+
+
+  <section class="quiz card" data-correct="0">
+
+    <span class="badge"
+          data-es="DESAFÍO DE MISIÓN"
+          data-en="MISSION CHALLENGE">
+      DESAFÍO DE MISIÓN
+    </span>
+
+    <h2 data-es="Comprobación de conocimientos"
+        data-en="Knowledge Check">
+      Comprobación de conocimientos
+    </h2>
+
+    <p data-es="¿Qué elemento de las Voyager funciona como un mensaje de la humanidad para posibles observadores del futuro?"
+       data-en="Which element of the Voyagers acts as a message from humanity to possible future observers?">
+      ¿Qué elemento de las Voyager funciona como un mensaje de la humanidad para posibles observadores del futuro?
+    </p>
+
+    <button data-answer="0"
+            data-es="El Golden Record"
+            data-en="The Golden Record">
+      El Golden Record
+    </button>
+
+    <button data-answer="1"
+            data-es="Una muestra de agua de Marte"
+            data-en="A sample of water from Mars">
+      Una muestra de agua de Marte
+    </button>
+
+    <button data-answer="2"
+            data-es="Un mapa de la Luna"
+            data-en="A map of the Moon">
+      Un mapa de la Luna
+    </button>
+
+    <button data-answer="3"
+            data-es="Una computadora con videojuegos"
+            data-en="A computer with video games">
+      Una computadora con videojuegos
+    </button>
+
+    <div class="result"></div>
+
+  </section>
+
+
+  <section class="moral">
+
+    <h2 data-es="Dos sondas. Miles de millones de kilómetros. Una historia que todavía viaja."
+        data-en="Two probes. Billions of kilometers. A story that is still traveling.">
+      Dos sondas. Miles de millones de kilómetros. Una historia que todavía viaja.
+    </h2>
+
+    <p data-es="Las Voyager no son simplemente máquinas antiguas alejándose de la Tierra. Son cápsulas de conocimiento. Sus imágenes cambiaron nuestra visión de mundos lejanos y sus datos continúan ayudándonos a estudiar las regiones más externas de nuestro entorno cósmico."
+       data-en="The Voyagers are not simply old machines moving away from Earth. They are capsules of knowledge. Their images changed our view of distant worlds, and their data continue to help us study the outermost regions of our cosmic environment.">
+      Las Voyager no son simplemente máquinas antiguas alejándose de la Tierra. Son cápsulas de conocimiento. Sus imágenes cambiaron nuestra visión de mundos lejanos y sus datos continúan ayudándonos a estudiar las regiones más externas de nuestro entorno cósmico.
+    </p>
+
+    <p data-es="Tal vez esa sea la parte más hermosa de la misión: cuando una pregunta humana se convierte en una máquina, y esa máquina consigue mirar donde nosotros todavía no podemos llegar."
+       data-en="Perhaps that is the most beautiful part of the mission: when a human question becomes a machine, and that machine manages to look where we still cannot go.">
+      Tal vez esa sea la parte más hermosa de la misión: cuando una pregunta humana se convierte en una máquina, y esa máquina consigue mirar donde nosotros todavía no podemos llegar.
+    </p>
+
+  </section>
+
+
+</main>
+
+
+<footer>
+
+  NASA // MISSION CONTROL
+
+  <br>
+
+  <span class="small"
+        data-es="Proyecto educativo sobre exploración espacial"
+        data-en="Educational project about space exploration">
+    Proyecto educativo sobre exploración espacial
+  </span>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title
+    data-es="NASA // Control de Misión"
+    data-en="NASA // Mission Control">
+    NASA // Control de Misión
+  </title>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .badge::before{
+      content:none;
+    }
+
+    .control-hero{
+      min-height:88vh;
+      display:grid;
+      align-items:end;
+      position:relative;
+      overflow:hidden;
+      padding:70px 6%;
+      background:
+        linear-gradient(90deg,rgba(5,11,18,.94) 0%,rgba(5,11,18,.68) 42%,rgba(5,11,18,.38) 100%),
+        linear-gradient(0deg,rgba(5,11,18,1) 0%,rgba(5,11,18,.12) 65%),
+        url("https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/August-2013_1920x1200.jpg") center/cover;
+    }
+
+    .control-hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(57,217,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(57,217,255,.025) 1px,transparent 1px);
+      background-size:55px 55px;
+      pointer-events:none;
+    }
+
+    .control-hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 75% 35%,rgba(57,217,255,.12),transparent 25%),
+        radial-gradient(circle at 85% 70%,rgba(101,230,165,.07),transparent 20%);
+      pointer-events:none;
+    }
+
+    .control-inner{
+      width:min(1200px,100%);
+      margin:auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .control-topline{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:25px;
+      font-family:monospace;
+      font-size:.72rem;
+      color:var(--muted);
+      letter-spacing:1px;
+    }
+
+    .control-topline strong{
+      color:var(--green);
+    }
+
+    .control-title{
+      max-width:900px;
+    }
+
+    .control-title h1{
+      font-size:clamp(3.4rem,9vw,8rem);
+      margin:12px 0 20px;
+      letter-spacing:-3px;
+      text-shadow:0 0 35px rgba(0,0,0,.9);
+    }
+
+    .control-title .lead{
+      max-width:750px;
+      font-size:1.2rem;
+    }
+
+    .hero-console{
+      margin-top:35px;
+      display:grid;
+      grid-template-columns:1.4fr .8fr .8fr;
+      border:1px solid var(--line);
+      background:rgba(5,11,18,.78);
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 30px rgba(57,217,255,.08);
+    }
+
+    .console-cell{
+      padding:18px 20px;
+      border-right:1px solid var(--line);
+    }
+
+    .console-cell:last-child{
+      border-right:0;
+    }
+
+    .console-label{
+      display:block;
+      font-family:monospace;
+      font-size:.68rem;
+      color:var(--muted);
+      margin-bottom:7px;
+      letter-spacing:1px;
+    }
+
+    .console-value{
+      color:var(--cyan);
+      font-family:monospace;
+      font-weight:900;
+      font-size:1rem;
+    }
+
+    .console-value.green{
+      color:var(--green);
+    }
+
+    .control-grid{
+      display:grid;
+      grid-template-columns:1.4fr .6fr;
+      gap:20px;
+      margin-top:25px;
+    }
+
+    .system-card{
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);
+      padding:25px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .system-card::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:2px;
+      background:var(--cyan);
+    }
+
+    .system-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    .system-head h2{
+      margin:0;
+      font-size:1.4rem;
+    }
+
+    .system-id{
+      font-family:monospace;
+      color:var(--muted);
+      font-size:.7rem;
+    }
+
+    .signal-bar{
+      height:8px;
+      border:1px solid var(--line);
+      background:#050b12;
+      overflow:hidden;
+    }
+
+    .signal-bar span{
+      display:block;
+      width:88%;
+      height:100%;
+      background:var(--green);
+      box-shadow:0 0 12px rgba(101,230,165,.4);
+    }
+
+    .signal-meta{
+      display:flex;
+      justify-content:space-between;
+      margin-top:8px;
+      font-family:monospace;
+      font-size:.68rem;
+      color:var(--muted);
+    }
+
+    .system-readout{
+      margin-top:25px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .readout{
+      padding:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.015);
+    }
+
+    .readout span{
+      display:block;
+      font-family:monospace;
+      font-size:.65rem;
+      color:var(--muted);
+      margin-bottom:5px;
+    }
+
+    .readout strong{
+      color:var(--cyan);
+      font-family:monospace;
+    }
+
+    .mission-index{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:100%;
+    }
+
+    .mission-index .big-number{
+      font-size:5rem;
+      line-height:1;
+      color:var(--cyan);
+      font-family:monospace;
+      font-weight:900;
+    }
+
+    .mission-index p{
+      color:var(--muted);
+      margin-bottom:0;
+    }
+
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .section-header h2{
+      margin:0;
+    }
+
+    .section-code{
+      font-family:monospace;
+      color:var(--muted);
+      font-size:.7rem;
+    }
+
+    .mission-console-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .mission-console{
+      position:relative;
+      display:block;
+      padding:0;
+      overflow:hidden;
+      background:#071018;
+      border:1px solid var(--line);
+      transition:.25s ease;
+    }
+
+    .mission-console:hover{
+      border-color:var(--cyan);
+      transform:translateY(-3px);
+      box-shadow:0 0 25px rgba(57,217,255,.1);
+    }
+
+    .mission-image{
+      height:210px;
+      position:relative;
+      overflow:hidden;
+      background:#03070b;
+    }
+
+    .mission-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(0deg,#071018 0%,transparent 55%),
+        linear-gradient(90deg,rgba(5,11,18,.25),transparent);
+    }
+
+    .mission-image.spirit{
+      background:url("https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/4/42586_MER_twins_white_cyc.png") center/cover no-repeat;
+      background-color:#03070b;
+    }
+
+    .mission-image.voyager{
+      background:url("https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/pia22835.png") center/cover no-repeat;
+      background-color:#03070b;
+    }
+
+    .mission-image.curiosity{
+      background:url("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16457.jpg") center/cover no-repeat;
+    }
+
+    .mission-image.pioneer{
+      background:url("https://science.nasa.gov/wp-content/uploads/2023/04/jupiter_pioneer_10_art-jpg.webp") center/cover no-repeat;
+    }
+
+    .mission-console-body{
+      padding:22px;
+    }
+
+    .mission-code{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color:var(--muted);
+      font-family:monospace;
+      font-size:.67rem;
+      margin-bottom:12px;
+    }
+
+    .mission-console h3{
+      margin:0 0 10px;
+      font-size:1.7rem;
+      color:var(--text);
+    }
+
+    .mission-console p{
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .mission-footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      border-top:1px solid var(--line);
+      padding-top:15px;
+      font-family:monospace;
+      font-size:.68rem;
+    }
+
+    .mission-status{
+      color:var(--green);
+    }
+
+    .mission-open{
+      color:var(--cyan);
+    }
+
+    .network{
+      margin-top:25px;
+      padding:28px;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(rgba(57,217,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(57,217,255,.025) 1px,transparent 1px),
+        #071018;
+      background-size:35px 35px;
+    }
+
+    .network-map{
+      height:170px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 8%;
+    }
+
+    .network-line{
+      position:absolute;
+      left:12%;
+      right:12%;
+      top:50%;
+      height:1px;
+      background:var(--cyan);
+      opacity:.5;
+    }
+
+    .node{
+      position:relative;
+      z-index:2;
+      width:76px;
+      height:76px;
+      border-radius:50%;
+      border:1px solid var(--cyan);
+      background:#071018;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      font-family:monospace;
+      font-size:.65rem;
+      color:var(--cyan);
+      box-shadow:0 0 20px rgba(57,217,255,.12);
+    }
+
+    .node.active{
+      border-color:var(--green);
+      color:var(--green);
+      box-shadow:0 0 25px rgba(101,230,165,.18);
+    }
+
+    .network-caption{
+      text-align:center;
+      color:var(--muted);
+      font-family:monospace;
+      font-size:.7rem;
+      margin-top:10px;
+    }
+
+    .objective{
+      margin-top:25px;
+      display:grid;
+      grid-template-columns:80px 1fr;
+      gap:20px;
+      align-items:center;
+      padding:28px;
+      border:1px solid var(--green);
+      background:rgba(101,230,165,.035);
+    }
+
+    .objective-icon{
+      width:70px;
+      height:70px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--green);
+      color:var(--green);
+      font-family:monospace;
+      font-size:1.5rem;
+    }
+
+    .objective h2{
+      margin:0 0 8px;
+      font-size:1.5rem;
+      color:var(--green);
+    }
+
+    .objective p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .final-control{
+      margin-top:25px;
+      text-align:center;
+      padding:65px 25px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at center,rgba(57,217,255,.1),transparent 55%),
+        #071018;
+    }
+
+    .final-control .terminal{
+      font-family:monospace;
+      color:var(--green);
+      font-size:.7rem;
+      letter-spacing:2px;
+    }
+
+    .final-control h2{
+      font-size:clamp(2rem,5vw,4rem);
+      margin:15px 0;
+      color:var(--text);
+    }
+
+    .final-control p{
+      max-width:700px;
+      margin:auto;
+      color:var(--muted);
+    }
+
+    @media(max-width:800px){
+      .hero-console,
+      .control-grid,
+      .mission-console-grid{
+        grid-template-columns:1fr;
+      }
+
+      .console-cell{
+        border-right:0;
+        border-bottom:1px solid var(--line);
+      }
+
+      .console-cell:last-child{
+        border-bottom:0;
+      }
+
+      .system-readout{
+        grid-template-columns:1fr;
+      }
+
+      .mission-index{
+        min-height:auto;
+      }
+    }
+
+    @media(max-width:600px){
+      .control-hero{
+        min-height:80vh;
+        padding:55px 5%;
+      }
+
+      .control-title h1{
+        letter-spacing:-1px;
+      }
+
+      .network-map{
+        padding:0 2%;
+      }
+
+      .network-line{
+        left:8%;
+        right:8%;
+      }
+
+      .node{
+        width:60px;
+        height:60px;
+        font-size:.55rem;
+      }
+
+      .objective{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .objective-icon{
+        margin:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="nav">
+
+  <a class="logo" href="index.html"
+     data-es="NASA // CONTROL DE MISIÓN"
+     data-en="NASA // MISSION CONTROL">
+    NASA // CONTROL DE MISIÓN
+  </a>
+
+  <a href="spirit-opportunity.html"
+     data-es="Spirit + Opportunity"
+     data-en="Spirit + Opportunity">
+    Spirit + Opportunity
+  </a>
+
+  <a href="voyager.html"
+     data-es="Voyager"
+     data-en="Voyager">
+    Voyager
+  </a>
+
+  <a href="curiosity.html"
+     data-es="Curiosity"
+     data-en="Curiosity">
+    Curiosity
+  </a>
+
+  <a href="pioneer.html"
+     data-es="Pioneer"
+     data-en="Pioneer">
+    Pioneer
+  </a>
+
+  <button class="lang"
+          id="langButton"
+          data-es="🇺🇸 English"
+          data-en="🇪🇸 Español">
+    🇺🇸 English
+  </button>
+
+</nav>
+
+
+<header class="control-hero">
+
+  <div class="control-inner">
+
+    <div class="control-topline">
+
+      <span
+        data-es="NASA // RED DE ESPACIO PROFUNDO"
+        data-en="NASA // DEEP SPACE NETWORK">
+        NASA // RED DE ESPACIO PROFUNDO
+      </span>
+
+      <span>
+        <strong
+          data-es="● SISTEMA EN LÍNEA"
+          data-en="● SYSTEM ONLINE">
+          ● SISTEMA EN LÍNEA
+        </strong>
+      </span>
+
+      <span
+        data-es="ESTACIÓN TERRESTRE // CONTROL"
+        data-en="EARTH STATION // CONTROL">
+        ESTACIÓN TERRESTRE // CONTROL
+      </span>
+
+    </div>
+
+
+    <div class="control-title">
+
+      <span class="badge"
+            data-es="CENTRO DE CONTROL DE MISIÓN"
+            data-en="MISSION CONTROL CENTER">
+        CENTRO DE CONTROL DE MISIÓN
+      </span>
+
+      <h1 data-es="HUMAN SPACE EXPLORATION"
+          data-en="HUMAN SPACE EXPLORATION">
+          HUMAN SPACE EXPLORATION
+      </h1>
+
+      <p class="lead"
+         data-es="Cuatro misiones. Décadas de exploración. Una misma pregunta: ¿qué podemos descubrir más allá de la Tierra?"
+         data-en="Four missions. Decades of exploration. One question: what can we discover beyond Earth?">
+        Cuatro misiones. Décadas de exploración. Una misma pregunta:
+        ¿qué podemos descubrir más allá de la Tierra?
+      </p>
+
+      <a class="btn"
+         href="#missions"
+         data-es="ACCEDER A LAS MISIONES →"
+         data-en="ACCESS MISSIONS →">
+        ACCEDER A LAS MISIONES →
+      </a>
+
+    </div>
+
+
+    <div class="hero-console">
+
+      <div class="console-cell">
+
+        <span class="console-label"
+              data-es="ESTADO DEL SISTEMA"
+              data-en="SYSTEM STATUS">
+          ESTADO DEL SISTEMA
+        </span>
+
+        <span class="console-value green"
+              data-es="● EN LÍNEA"
+              data-en="● ONLINE">
+          ● EN LÍNEA
+        </span>
+
+      </div>
+
+
+      <div class="console-cell">
+
+        <span class="console-label"
+              data-es="ARCHIVOS"
+              data-en="ARCHIVES">
+          ARCHIVOS
+        </span>
+
+        <span class="console-value"
+              data-es="04 MISIONES"
+              data-en="04 MISSIONS">
+          04 MISIONES
+        </span>
+
+      </div>
+
+
+      <div class="console-cell">
+
+        <span class="console-label"
+              data-es="OPERACIÓN"
+              data-en="OPERATION">
+          OPERACIÓN
+        </span>
+
+        <span class="console-value"
+              data-es="ACTIVA"
+              data-en="ACTIVE">
+          ACTIVA
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <section class="control-grid">
+
+    <div class="system-card">
+
+      <div class="system-head">
+
+        <h2
+          data-es="RED DE ESPACIO PROFUNDO"
+          data-en="DEEP SPACE NETWORK">
+          RED DE ESPACIO PROFUNDO
+        </h2>
+
+        <span class="system-id">SYS-01</span>
+
+      </div>
+
+
+      <span class="console-label"
+            data-es="ACTIVIDAD DE EXPLORACIÓN"
+            data-en="EXPLORATION ACTIVITY">
+        ACTIVIDAD DE EXPLORACIÓN
+      </span>
+
+
+      <div class="signal-bar">
+        <span></span>
+      </div>
+
+
+      <div class="signal-meta">
+
+        <span
+          data-es="SISTEMA OPERATIVO"
+          data-en="SYSTEM OPERATIONAL">
+          SISTEMA OPERATIVO
+        </span>
+
+        <span>88%</span>
+
+      </div>
+
+
+      <div class="system-readout">
+
+        <div class="readout">
+
+          <span
+            data-es="MISIONES"
+            data-en="MISSIONS">
+            MISIONES
+          </span>
+
+          <strong>04</strong>
+
+        </div>
+
+
+        <div class="readout">
+
+          <span
+            data-es="OBJETIVO PRINCIPAL"
+            data-en="PRIMARY TARGET">
+            OBJETIVO PRINCIPAL
+          </span>
+
+          <strong
+            data-es="MARTE"
+            data-en="MARS">
+            MARTE
+          </strong>
+
+        </div>
+
+
+        <div class="readout">
+
+          <span
+            data-es="ESPACIO PROFUNDO"
+            data-en="DEEP SPACE">
+            ESPACIO PROFUNDO
+          </span>
+
+          <strong
+            data-es="SÍ"
+            data-en="YES">
+            SÍ
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="system-card mission-index">
+
+      <span class="console-label"
+            data-es="ARCHIVOS DISPONIBLES"
+            data-en="AVAILABLE ARCHIVES">
+        ARCHIVOS DISPONIBLES
+      </span>
+
+      <div class="big-number">04</div>
+
+      <p
+        data-es="Seleccioná una misión para acceder a su archivo de exploración."
+        data-en="Select a mission to access its exploration archive.">
+        Seleccioná una misión para acceder a su archivo de exploración.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section id="missions" style="padding-top:55px;">
+
+    <div class="section-header">
+
+      <div>
+
+        <span class="badge"
+              data-es="ARCHIVOS DE MISIÓN"
+              data-en="MISSION ARCHIVES">
+          ARCHIVOS DE MISIÓN
+        </span>
+
+        <h2
+          data-es="OPERACIONES DE MISIÓN"
+          data-en="MISSION OPERATIONS">
+          OPERACIONES DE MISIÓN
+        </h2>
+
+      </div>
+
+      <span class="section-code"
+            data-es="ARCHIVO // 04"
+            data-en="ARCHIVE // 04">
+        ARCHIVO // 04
+      </span>
+
+    </div>
+
+
+    <div class="mission-console-grid">
+
+
+      <a class="mission-console"
+         href="spirit-opportunity.html">
+
+        <div class="mission-image spirit"></div>
+
+        <div class="mission-console-body">
+
+          <div class="mission-code">
+            <span>MSO-01</span>
+            <span
+              data-es="MARTE"
+              data-en="MARS">
+              MARTE
+            </span>
+          </div>
+
+          <h3>SPIRIT + OPPORTUNITY</h3>
+
+          <p
+            data-es="Dos exploradores robóticos que atravesaron la superficie de Marte y buscaron evidencias de agua en su pasado."
+            data-en="Two robotic explorers that crossed the surface of Mars and searched for evidence of water in its past.">
+            Dos exploradores robóticos que atravesaron la superficie de Marte
+            y buscaron evidencias de agua en su pasado.
+          </p>
+
+          <div class="mission-footer">
+
+            <span class="mission-status"
+                  data-es="● MISIÓN COMPLETADA"
+                  data-en="● MISSION COMPLETE">
+              ● MISIÓN COMPLETADA
+            </span>
+
+            <span class="mission-open"
+                  data-es="ABRIR →"
+                  data-en="OPEN →">
+              ABRIR →
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a class="mission-console"
+         href="voyager.html">
+
+        <div class="mission-image voyager"></div>
+
+        <div class="mission-console-body">
+
+          <div class="mission-code">
+            <span>DSO-02</span>
+            <span
+              data-es="ESPACIO PROFUNDO"
+              data-en="DEEP SPACE">
+              ESPACIO PROFUNDO
+            </span>
+          </div>
+
+          <h3>VOYAGER 1 + 2</h3>
+
+          <p
+            data-es="Dos sondas que visitaron los planetas gigantes y continuaron su viaje hacia el espacio interestelar."
+            data-en="Two probes that visited the giant planets and continued their journey into interstellar space.">
+            Dos sondas que visitaron los planetas gigantes y continuaron
+            su viaje hacia el espacio interestelar.
+          </p>
+
+          <div class="mission-footer">
+
+            <span class="mission-status"
+                  data-es="● ESPACIO PROFUNDO"
+                  data-en="● DEEP SPACE">
+              ● ESPACIO PROFUNDO
+            </span>
+
+            <span class="mission-open"
+                  data-es="ABRIR →"
+                  data-en="OPEN →">
+              ABRIR →
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a class="mission-console"
+         href="curiosity.html">
+
+        <div class="mission-image curiosity"></div>
+
+        <div class="mission-console-body">
+
+          <div class="mission-code">
+            <span>MSL-03</span>
+            <span
+              data-es="MARTE"
+              data-en="MARS">
+              MARTE
+            </span>
+          </div>
+
+          <h3>CURIOSITY</h3>
+
+          <p
+            data-es="Un laboratorio científico sobre ruedas que estudia las rocas, el suelo y la historia ambiental de Marte."
+            data-en="A science laboratory on wheels studying rocks, soil and the environmental history of Mars.">
+            Un laboratorio científico sobre ruedas que estudia las rocas,
+            el suelo y la historia ambiental de Marte.
+          </p>
+
+          <div class="mission-footer">
+
+            <span class="mission-status"
+                  data-es="● OPERACIONAL"
+                  data-en="● OPERATIONAL">
+              ● OPERACIONAL
+            </span>
+
+            <span class="mission-open"
+                  data-es="ABRIR →"
+                  data-en="OPEN →">
+              ABRIR →
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <a class="mission-console"
+         href="pioneer.html">
+
+        <div class="mission-image pioneer"></div>
+
+        <div class="mission-console-body">
+
+          <div class="mission-code">
+            <span>EDSP-04</span>
+            <span
+              data-es="HISTÓRICO"
+              data-en="HISTORICAL">
+              HISTÓRICO
+            </span>
+          </div>
+
+          <h3>PIONEER 10 + 11</h3>
+
+          <p
+            data-es="Las primeras sondas que exploraron de cerca Júpiter y Saturno y que hoy continúan su viaje silencioso."
+            data-en="The first probes to explore Jupiter and Saturn up close, now continuing their silent journey.">
+            Las primeras sondas que exploraron de cerca Júpiter y Saturno
+            y que hoy continúan su viaje silencioso.
+          </p>
+
+          <div class="mission-footer">
+
+            <span class="mission-status"
+                  data-es="● MISIÓN HISTÓRICA"
+                  data-en="● HISTORICAL MISSION">
+              ● MISIÓN HISTÓRICA
+            </span>
+
+            <span class="mission-open"
+                  data-es="ABRIR →"
+                  data-en="OPEN →">
+              ABRIR →
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <section class="network">
+
+    <div class="section-header">
+
+      <div>
+
+        <span class="badge"
+              data-es="RED DE EXPLORACIÓN"
+              data-en="EXPLORATION NETWORK">
+          RED DE EXPLORACIÓN
+        </span>
+
+        <h2
+          data-es="RED DE MISIONES"
+          data-en="MISSION NETWORK">
+          RED DE MISIONES
+        </h2>
+
+      </div>
+
+      <span class="section-code"
+            data-es="TIERRA // MARTE // ESPACIO PROFUNDO"
+            data-en="EARTH // MARS // DEEP SPACE">
+        TIERRA // MARTE // ESPACIO PROFUNDO
+      </span>
+
+    </div>
+
+
+    <div class="network-map">
+
+      <div class="network-line"></div>
+
+      <div class="node active"
+           data-es="TIERRA"
+           data-en="EARTH">
+        TIERRA
+      </div>
+
+      <div class="node"
+           data-es="MARTE"
+           data-en="MARS">
+        MARTE
+      </div>
+
+      <div class="node"
+           data-es="JÚPITER"
+           data-en="JUPITER">
+        JÚPITER
+      </div>
+
+      <div class="node"
+           data-es="ESPACIO<br>PROFUNDO"
+           data-en="DEEP<br>SPACE">
+        ESPACIO<br>PROFUNDO
+      </div>
+
+    </div>
+
+
+    <div class="network-caption"
+         data-es="CUATRO MISIONES // UNA HISTORIA DE EXPLORACIÓN"
+         data-en="FOUR MISSIONS // ONE STORY OF EXPLORATION">
+      CUATRO MISIONES // UNA HISTORIA DE EXPLORACIÓN
+    </div>
+
+  </section>
+
+
+  <section class="objective">
+
+    <div class="objective-icon">01</div>
+
+    <div>
+
+      <h2
+        data-es="OBJETIVO DE MISIÓN"
+        data-en="MISSION OBJECTIVE">
+        OBJETIVO DE MISIÓN
+      </h2>
+
+      <p
+        data-es="Estas misiones no son solamente máquinas. Son el resultado de personas que imaginaron preguntas, construyeron tecnología y decidieron mirar más lejos."
+        data-en="These missions are more than machines. They are the result of people who imagined questions, built technology, and decided to look farther.">
+        Estas misiones no son solamente máquinas. Son el resultado de
+        personas que imaginaron preguntas, construyeron tecnología y
+        decidieron mirar más lejos.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="final-control">
+
+    <div class="terminal"
+         data-es="TRANSMISIÓN // MENSAJE PARA LA SIGUIENTE GENERACIÓN"
+         data-en="TRANSMISSION // MESSAGE FOR THE NEXT GENERATION">
+      TRANSMISIÓN // MENSAJE PARA LA SIGUIENTE GENERACIÓN
+    </div>
+
+    <h2 
+      data-es="EXPLORATION CONTINUES."
+      data-en="EXPLORATION CONTINUES.">
+       EXPLORATION CONTINUES.
+    </h2>
+
+    <p
+      data-es="Cada imagen, cada dato y cada descubrimiento puede convertirse en el punto de partida de una nueva misión."
+      data-en="Every image, every piece of data, and every discovery can become the starting point of a new mission.">
+      Cada imagen, cada dato y cada descubrimiento puede convertirse
+      en el punto de partida de una nueva misión.
+    </p>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <span
+    data-es="NASA // CONTROL DE MISIÓN"
+    data-en="NASA // MISSION CONTROL">
+    NASA // CONTROL DE MISIÓN
+  </span>
+
+  <br>
+
+  <span class="small"
+        data-es="Proyecto educativo sobre exploración espacial"
+        data-en="Educational project about space exploration">
+    Proyecto educativo sobre exploración espacial
+  </span>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+<script>
+function syncIndexLanguage(){
+  const currentLang = localStorage.getItem("nasaLang") || "es";
+
+  document.documentElement.lang = currentLang;
+
+  document.title =
+    currentLang === "en"
+      ? "NASA // Mission Control"
+      : "NASA // Control de Misión";
+}
+
+syncIndexLanguage();
+
+const langButton = document.getElementById("langButton");
+
+if(langButton){
+  langButton.addEventListener("click",function(){
+    setTimeout(syncIndexLanguage,0);
+  });
+}
+</script>
+
+</body>
+</html>

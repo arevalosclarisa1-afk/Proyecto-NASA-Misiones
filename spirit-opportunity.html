@@ -1,0 +1,1308 @@
+
+<!doctype html>
+<html lang="es">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Spirit + Opportunity | NASA Mission Control</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+.rover-game {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.game-info {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.game-info strong {
+  color: var(--cyan);
+}
+
+.maze {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: min(450px, 90vw);
+  aspect-ratio: 1;
+  margin: 25px auto;
+  border: 2px solid var(--cyan);
+  background: #02070c;
+  box-shadow: 0 0 25px rgba(57,217,255,.15);
+}
+
+.cell {
+  border: 1px solid rgba(57,217,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(15px, 4vw, 28px);
+}
+
+.wall {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #0b202c,
+      #0b202c 4px,
+      #07131c 4px,
+      #07131c 8px
+    );
+}
+
+.path {
+  background: #030b11;
+}
+
+.player {
+  background: rgba(57,217,255,.15);
+}
+
+.goal {
+  background: rgba(101,230,165,.12);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 55px);
+  justify-content: center;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.controls button {
+  height: 50px;
+  border: 1px solid var(--line);
+  background: #071018;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.controls button:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.controls .empty {
+  visibility: hidden;
+}
+
+.game-result {
+  font-weight: 900;
+  color: var(--green);
+  min-height: 28px;
+  margin-top: 15px;
+}
+
+.rover-card {
+  text-align: center;
+}
+
+.rover-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.mission-question {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+</style>
+
+</head>
+
+<body>
+
+<nav class="nav">
+
+  <a
+    class="logo"
+    href="index.html"
+    data-es="NASA // MISSION CONTROL"
+    data-en="NASA // MISSION CONTROL"
+  >
+    NASA // MISSION CONTROL
+  </a>
+
+  <a
+    href="spirit-opportunity.html"
+    data-es="Spirit + Opportunity"
+    data-en="Spirit + Opportunity"
+  >
+    Spirit + Opportunity
+  </a>
+
+  <a
+    href="voyager.html"
+    data-es="Voyager"
+    data-en="Voyager"
+  >
+    Voyager
+  </a>
+
+  <a
+    href="curiosity.html"
+    data-es="Curiosity"
+    data-en="Curiosity"
+  >
+    Curiosity
+  </a>
+
+  <a
+    href="pioneer.html"
+    data-es="Pioneer"
+    data-en="Pioneer"
+  >
+    Pioneer
+  </a>
+
+  <button class="lang" id="langButton">
+    🇺🇸 English
+  </button>
+
+</nav>
+
+<header class="hero">
+
+  <div class="hero-inner">
+
+    <span
+      class="badge"
+      data-es="OPERACIONES EN LA SUPERFICIE DE MARTE"
+      data-en="MARS SURFACE OPERATIONS"
+    >
+      OPERACIONES EN LA SUPERFICIE DE MARTE
+    </span>
+
+    <h1
+      data-es="SPIRIT"
+      data-en="SPIRIT"
+    >
+      SPIRIT
+    </h1>
+
+    <h1
+      data-es="+ OPPORTUNITY"
+      data-en="+ OPPORTUNITY"
+    >
+      + OPPORTUNITY
+    </h1>
+
+    <p
+      class="lead"
+      data-es="Dos pequeños robots. Un planeta enorme. Y una misión para descubrir qué ocurrió en el antiguo Marte."
+      data-en="Two small robots. One huge planet. And a mission to discover what happened on ancient Mars."
+    >
+      Dos pequeños robots. Un planeta enorme.
+      Y una misión para descubrir qué ocurrió
+      en el antiguo Marte.
+    </p>
+
+    <a
+      class="btn"
+      href="#game"
+      data-es="INICIAR MISIÓN →"
+      data-en="START MISSION →"
+    >
+      INICIAR MISIÓN →
+    </a>
+
+  </div>
+
+</header>
+
+<main class="container">
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="ESTADO DE LA MISIÓN"
+    data-en="MISSION STATUS"
+  >
+    ESTADO DE LA MISIÓN
+  </span>
+
+  <h2
+    data-es="DOS ROVERS. DOS CAMINOS."
+    data-en="TWO ROVERS. TWO PATHS."
+  >
+    DOS ROVERS. DOS CAMINOS.
+  </h2>
+
+  <div class="grid">
+
+    <div>
+      <span
+        class="small"
+        data-es="LLEGADA"
+        data-en="ARRIVAL"
+      >
+        LLEGADA
+      </span>
+
+      <div class="stat">
+        2004
+      </div>
+    </div>
+
+    <div>
+      <span
+        class="small"
+        data-es="ROVERS"
+        data-en="ROVERS"
+      >
+        ROVERS
+      </span>
+
+      <div class="stat">
+        2
+      </div>
+    </div>
+
+    <div>
+      <span
+        class="small"
+        data-es="OPPORTUNITY"
+        data-en="OPPORTUNITY"
+      >
+        OPPORTUNITY
+      </span>
+
+      <div class="stat">
+        45.16 km
+      </div>
+    </div>
+
+    <div>
+      <span
+        class="small"
+        data-es="ÚLTIMA SEÑAL"
+        data-en="LAST SIGNAL"
+      >
+        ÚLTIMA SEÑAL
+      </span>
+
+      <div class="stat">
+        2018
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="INFORME DE MISIÓN"
+    data-en="MISSION BRIEFING"
+  >
+    INFORME DE MISIÓN
+  </span>
+
+  <h2
+    data-es="Dos hermanos robóticos"
+    data-en="Two robotic siblings"
+  >
+    Dos hermanos robóticos
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="En 2004, Spirit y Opportunity llegaron a Marte. Eran rovers gemelos enviados a distintos lugares del planeta para estudiar rocas, suelo y señales de agua antigua."
+    data-en="In 2004, Spirit and Opportunity arrived on Mars. They were twin rovers sent to different locations on the planet to study rocks, soil and evidence of ancient water."
+  >
+    En 2004, Spirit y Opportunity llegaron a Marte.
+    Eran rovers gemelos enviados a distintos lugares
+    del planeta para estudiar rocas, suelo y señales
+    de agua antigua.
+  </p>
+
+  <p
+    style="text-align: justify;"
+    data-es="Spirit exploró el cráter Gusev. Opportunity recorrió Meridiani Planum. Cada uno siguió su propio camino."
+    data-en="Spirit explored Gusev Crater. Opportunity explored Meridiani Planum. Each rover followed its own path."
+  >
+    Spirit exploró el cráter Gusev.
+    Opportunity recorrió Meridiani Planum.
+    Cada uno siguió su propio camino.
+  </p>
+
+</section>
+
+<section>
+
+  <div class="grid">
+
+    <div class="card rover-card">
+
+      <div class="rover-icon">
+        🤖
+      </div>
+
+      <h2>SPIRIT</h2>
+
+      <p
+        data-es="Exploró el cráter Gusev y estudió evidencias de un pasado marciano con agua."
+        data-en="It explored Gusev Crater and studied evidence of a watery past on Mars."
+      >
+        Exploró el cráter Gusev y estudió
+        evidencias de un pasado marciano
+        con agua.
+      </p>
+
+      <span
+        class="small"
+        data-es="CRÁTER GUSEV"
+        data-en="GUSEV CRATER"
+      >
+        CRÁTER GUSEV
+      </span>
+
+    </div>
+
+    <div class="card rover-card">
+
+      <div class="rover-icon">
+        🤖
+      </div>
+
+      <h2>OPPORTUNITY</h2>
+
+      <p
+        data-es="Exploró Meridiani Planum y recorrió una distancia enorme para estudiar las pistas que Marte había dejado."
+        data-en="It explored Meridiani Planum and traveled an enormous distance to study the clues Mars had left behind."
+      >
+        Exploró Meridiani Planum y recorrió
+        una distancia enorme para estudiar
+        las pistas que Marte había dejado.
+      </p>
+
+      <span
+        class="small"
+        data-es="MERIDIANI PLANUM"
+        data-en="MERIDIANI PLANUM"
+      >
+        MERIDIANI PLANUM
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="DATOS VISUALES // SPIRIT"
+    data-en="VISUAL DATA // SPIRIT"
+  >
+    DATOS VISUALES // SPIRIT
+  </span>
+
+  <h2
+    data-es="Así se veía Spirit en Marte."
+    data-en="This is what Spirit looked like on Mars."
+  >
+    Así se veía Spirit en Marte.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="Spirit no tenía a nadie detrás tomando fotografías. El propio rover utilizaba sus instrumentos para observar el mundo que lo rodeaba."
+    data-en="Spirit did not have anyone behind it taking photographs. The rover itself used its instruments to observe the world around it."
+  >
+    Spirit no tenía a nadie detrás tomando fotografías.
+    El propio rover utilizaba sus instrumentos para observar
+    el mundo que lo rodeaba.
+  </p>
+
+  <div class="mission-photo photo-highlight">
+
+    <img
+      src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/resources/detail_files/5835_Sol650circa_SummitPolarV9-PIA03275-full2.jpg?crop=faces%2Cfocalpoint&fit=clip&h=2785&w=2785"
+      alt="Autorretrato panorámico del rover Spirit en Marte"
+      loading="lazy"
+    >
+
+    <div class="photo-info">
+
+      <span>
+        <strong
+          data-es="ROVER:"
+          data-en="ROVER:"
+        >ROVER:</strong>
+        SPIRIT
+      </span>
+
+      <span>
+        <strong
+          data-es="UBICACIÓN:"
+          data-en="LOCATION:"
+        >UBICACIÓN:</strong>
+        GUSEV CRATER
+      </span>
+
+      <span>
+        <strong
+          data-es="DATOS:"
+          data-en="DATA:"
+        >DATOS:</strong>
+        PANORAMIC CAMERA
+      </span>
+
+    </div>
+
+    <div
+      class="photo-credit"
+      data-es="NASA/JPL-Caltech/Cornell"
+      data-en="NASA/JPL-Caltech/Cornell"
+    >
+      NASA/JPL-Caltech/Cornell
+    </div>
+
+  </div>
+
+  <p
+    class="small"
+    data-es="Autorretrato y panorama capturados por Spirit desde Husband Hill."
+    data-en="Self-portrait and panorama captured by Spirit from Husband Hill."
+  >
+    Autorretrato y panorama capturados por Spirit desde Husband Hill.
+  </p>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="DATOS VISUALES // OPPORTUNITY"
+    data-en="VISUAL DATA // OPPORTUNITY"
+  >
+    DATOS VISUALES // OPPORTUNITY
+  </span>
+
+  <h2
+    data-es="El mundo que encontró Opportunity."
+    data-en="The world Opportunity discovered."
+  >
+    El mundo que encontró Opportunity.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="Poco después de llegar, Opportunity obtuvo un panorama de 360 grados de su nuevo hogar. Las marcas de los airbags todavía podían verse sobre el suelo marciano."
+    data-en="Shortly after landing, Opportunity captured a 360-degree panorama of its new home. The marks left by its landing airbags could still be seen on the Martian surface."
+  >
+    Poco después de llegar, Opportunity obtuvo un panorama
+    de 360 grados de su nuevo hogar. Las marcas de los airbags
+    todavía podían verse sobre el suelo marciano.
+  </p>
+
+  <div class="mission-photo photo-wide">
+
+    <img
+      src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/3/8/38489_mars-meridiani-planum-crater-mer-opportunity-rover-PIA05199.jpg?crop=faces%2Cfocalpoint&fit=clip&h=800&w=1600"
+      alt="Panorama de Marte capturado por Opportunity"
+      loading="lazy"
+    >
+
+    <div class="photo-info">
+
+      <span>
+        <strong>ROVER:</strong>
+        OPPORTUNITY
+      </span>
+
+      <span>
+        <strong
+          data-es="UBICACIÓN:"
+          data-en="LOCATION:"
+        >UBICACIÓN:</strong>
+        MERIDIANI PLANUM
+      </span>
+
+      <span>
+        <strong
+          data-es="VISTA:"
+          data-en="VIEW:"
+        >VISTA:</strong>
+        360°
+      </span>
+
+    </div>
+
+    <div
+      class="photo-credit"
+      data-es="NASA/JPL-Caltech/Cornell"
+      data-en="NASA/JPL-Caltech/Cornell"
+    >
+      NASA/JPL-Caltech/Cornell
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="CÁMARA DEL ROVER // AUTORRETRATO"
+    data-en="ROVER CAMERA // SELF PORTRAIT"
+  >
+    CÁMARA DEL ROVER // AUTORRETRATO
+  </span>
+
+  <h2
+    data-es="Sí. También podía hacerse una selfie."
+    data-en="Yes. It could take a selfie too."
+  >
+    Sí. También podía hacerse una selfie.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="Opportunity utilizó su cámara panorámica para crear autorretratos. Esta imagen muestra sus paneles solares después de que varios eventos de viento ayudaran a limpiarlos del polvo."
+    data-en="Opportunity used its panoramic camera to create self-portraits. This image shows its solar panels after several wind events helped clear dust from them."
+  >
+    Opportunity utilizó su cámara panorámica para crear
+    autorretratos. Esta imagen muestra sus paneles solares
+    después de que varios eventos de viento ayudaran a
+    limpiarlos del polvo.
+  </p>
+
+  <div class="mission-photo photo-highlight">
+
+    <img
+      src="https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia18/pia18079/PIA18079.jpg"
+      alt="Autorretrato del rover Opportunity en Marte"
+      loading="lazy"
+    >
+
+    <div class="photo-info">
+
+      <span>
+        <strong>ROVER:</strong>
+        OPPORTUNITY
+      </span>
+
+      <span>
+        <strong
+          data-es="SOL:"
+          data-en="SOL:"
+        >SOL:</strong>
+        3611–3613
+      </span>
+
+      <span>
+        <strong
+          data-es="CÁMARA:"
+          data-en="CAMERA:"
+        >CÁMARA:</strong>
+        PANCAM
+      </span>
+
+    </div>
+
+    <div
+      class="photo-credit"
+      data-es="NASA/JPL-Caltech/Cornell/ASU"
+      data-en="NASA/JPL-Caltech/Cornell/ASU"
+    >
+      NASA/JPL-Caltech/Cornell/ASU
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="SEÑAL // MARTE"
+    data-en="SIGNAL // MARS"
+  >
+    SEÑAL // MARTE
+  </span>
+
+  <h2
+    data-es="Están separados."
+    data-en="They are separated."
+  >
+    Están separados.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="Spirit estaba explorando una parte de Marte. Opportunity estaba muy lejos, recorriendo otro territorio."
+    data-en="Spirit was exploring one part of Mars. Opportunity was far away, traveling through another region."
+  >
+    Spirit estaba explorando una parte de Marte.
+    Opportunity estaba muy lejos, recorriendo otro territorio.
+  </p>
+
+  <p
+    style="text-align: justify;"
+    data-es="No podían verse. No podían hablar entre ellos. Pero ambos buscaban pistas sobre la misma historia:"
+    data-en="They could not see each other. They could not talk to each other. But both were searching for clues about the same story:"
+  >
+    No podían verse. No podían hablar entre ellos.
+    Pero ambos buscaban pistas sobre la misma historia:
+  </p>
+
+  <div class="callout">
+
+    <h2
+      data-es="¿TUVO MARTE AGUA EN EL PASADO?"
+      data-en="DID MARS HAVE WATER IN THE PAST?"
+    >
+      ¿TUVO MARTE AGUA EN EL PASADO?
+    </h2>
+
+    <p
+      data-es="Las imágenes y los datos comenzaron a revelar la respuesta."
+      data-en="The images and data began to reveal the answer."
+    >
+      Las imágenes y los datos comenzaron a revelar la respuesta.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="SEÑAL RECIBIDA // TIERRA"
+    data-en="SIGNAL RECEIVED // EARTH"
+  >
+    SEÑAL RECIBIDA // TIERRA
+  </span>
+
+  <h2
+    data-es="Y entonces apareció algo familiar."
+    data-en="And then something familiar appeared."
+  >
+    Y entonces apareció algo familiar.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="Desde Marte, Spirit apuntó sus cámaras hacia el cielo. Allí, entre el resplandor del amanecer, apareció un pequeño punto: la Tierra."
+    data-en="From Mars, Spirit pointed its cameras toward the sky. There, among the glow of dawn, a tiny point appeared: Earth."
+  >
+    Desde Marte, Spirit apuntó sus cámaras hacia el cielo.
+    Allí, entre el resplandor del amanecer, apareció un
+    pequeño punto: <strong>la Tierra.</strong>
+  </p>
+
+  <div class="mission-photo photo-highlight">
+
+    <img
+      src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/3/9/39195_MER-Spirit-Rover-Earth-From-Mars-PIA05547.jpg?crop=faces%2Cfocalpoint&fit=clip&h=900&w=1100"
+      alt="La Tierra vista desde la superficie de Marte por Spirit"
+      loading="lazy"
+    >
+
+    <div class="photo-info">
+
+      <span>
+        <strong>ROVER:</strong>
+        SPIRIT
+      </span>
+
+      <span>
+        <strong
+          data-es="SOL:"
+          data-en="SOL:"
+        >SOL:</strong>
+        63
+      </span>
+
+      <span>
+        <strong
+          data-es="OBJETIVO:"
+          data-en="TARGET:"
+        >OBJETIVO:</strong>
+        EARTH
+      </span>
+
+    </div>
+
+    <div
+      class="photo-credit"
+      data-es="NASA/JPL-Caltech/Cornell/Texas A&M"
+      data-en="NASA/JPL-Caltech/Cornell/Texas A&M"
+    >
+      NASA/JPL-Caltech/Cornell/Texas A&M
+    </div>
+
+  </div>
+
+  <div class="callout">
+
+    <h3
+      data-es="¿LO PODÉS VER?"
+      data-en="CAN YOU SEE IT?"
+    >
+      ¿LO PODÉS VER?
+    </h3>
+
+    <p
+      data-es="Ese pequeño punto brillante es nuestro planeta."
+      data-en="That tiny bright point is our planet."
+    >
+      Ese pequeño punto brillante es nuestro planeta.
+    </p>
+
+  </div>
+
+</section>
+
+<section id="game" class="card rover-game">
+
+  <span
+    class="badge"
+    data-es="DESAFÍO DE MISIÓN"
+    data-en="MISSION CHALLENGE"
+  >
+    DESAFÍO DE MISIÓN
+  </span>
+
+  <h2
+    data-es="AYUDÁ A LOS ROVERS"
+    data-en="HELP THE ROVERS"
+  >
+    AYUDÁ A LOS ROVERS
+  </h2>
+
+  <p
+    class="mission-question"
+    data-es="Guiá al rover por Marte y encontrá el punto de comunicación."
+    data-en="Guide the rover across Mars and reach the communication point."
+  >
+    Guiá al rover por Marte y encontrá el punto
+    de comunicación.
+  </p>
+
+  <div class="game-info">
+
+    <div>
+      🤖
+      <strong
+        data-es="ROVER"
+        data-en="ROVER"
+      >
+        ROVER
+      </strong>
+    </div>
+
+    <div>
+      📡
+      <strong
+        data-es="BASE"
+        data-en="BASE"
+      >
+        BASE
+      </strong>
+    </div>
+
+    <div>
+      🎯
+      <strong
+        data-es="OBJETIVO"
+        data-en="TARGET"
+      >
+        OBJETIVO
+      </strong>
+    </div>
+
+  </div>
+
+  <div id="maze" class="maze"></div>
+
+  <p
+    class="small"
+    data-es="Usá las flechas del teclado o los botones."
+    data-en="Use the arrow keys or the buttons."
+  >
+    Usá las flechas del teclado o los botones.
+  </p>
+
+  <div class="controls">
+
+    <button class="empty"></button>
+
+    <button onclick="moveRover(0,-1)">
+      ↑
+    </button>
+
+    <button class="empty"></button>
+
+    <button onclick="moveRover(-1,0)">
+      ←
+    </button>
+
+    <button onclick="moveRover(0,1)">
+      ↓
+    </button>
+
+    <button onclick="moveRover(1,0)">
+      →
+    </button>
+
+  </div>
+
+  <div
+    id="gameResult"
+    class="game-result"
+  ></div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="TRANSMISIÓN // HISTORIA"
+    data-en="TRANSMISSION // STORY"
+  >
+    TRANSMISIÓN // HISTORIA
+  </span>
+
+  <h2
+    data-es="La historia continúa..."
+    data-en="The story continues..."
+  >
+    La historia continúa...
+  </h2>
+
+  <div class="callout">
+
+    <h3>
+      🎬 SPIRIT + OPPORTUNITY
+    </h3>
+
+    <p
+      data-es="Este espacio está reservado para el cortometraje que estamos preparando sobre la misión."
+      data-en="This space is reserved for the short film we are preparing about the mission."
+    >
+      Este espacio está reservado para el cortometraje
+      que estamos preparando sobre la misión.
+    </p>
+
+    <a
+      class="btn alt"
+      href="cortometraje.html"
+      data-es="▶ VER CORTOMETRAJE"
+      data-en="▶ WATCH SHORT FILM"
+    >
+      ▶ VER CORTOMETRAJE
+    </a>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="TRANSMISIÓN FINAL // OPPORTUNITY"
+    data-en="FINAL TRANSMISSION // OPPORTUNITY"
+  >
+    TRANSMISIÓN FINAL // OPPORTUNITY
+  </span>
+
+  <h2
+    data-es="La última vista."
+    data-en="The final view."
+  >
+    La última vista.
+  </h2>
+
+  <p
+    style="text-align: justify;"
+    data-es="En junio de 2018, Opportunity estaba investigando Perseverance Valley cuando una enorme tormenta de polvo cubrió gran parte de Marte."
+    data-en="In June 2018, Opportunity was exploring Perseverance Valley when a massive dust storm covered much of Mars."
+  >
+    En junio de 2018, Opportunity estaba investigando
+    Perseverance Valley cuando una enorme tormenta de polvo
+    cubrió gran parte de Marte.
+  </p>
+
+  <p
+    style="text-align: justify;"
+    data-es="Antes de perder la comunicación, el rover consiguió reunir las imágenes de este panorama."
+    data-en="Before losing communication, the rover managed to capture the images that make up this panorama."
+  >
+    Antes de perder la comunicación, el rover consiguió
+    reunir las imágenes de este panorama.
+  </p>
+
+  <div class="mission-photo photo-highlight">
+
+    <img
+      src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/PIA22909.jpg?crop=faces%2Cfocalpoint&fit=clip&h=800&w=1600"
+      alt="Último panorama de Opportunity antes de la tormenta de polvo de Marte"
+      loading="lazy"
+    >
+
+    <div class="photo-info">
+
+      <span>
+        <strong>ROVER:</strong>
+        OPPORTUNITY
+      </span>
+
+      <span>
+        <strong
+          data-es="FECHA:"
+          data-en="DATE:"
+        >FECHA:</strong>
+        JUNE 2018
+      </span>
+
+      <span>
+        <strong
+          data-es="ESTADO:"
+          data-en="STATUS:"
+        >ESTADO:</strong>
+        FINAL PANORAMA
+      </span>
+
+    </div>
+
+    <div
+      class="photo-credit"
+      data-es="NASA/JPL-Caltech/Cornell/ASU"
+      data-en="NASA/JPL-Caltech/Cornell/ASU"
+    >
+      NASA/JPL-Caltech/Cornell/ASU
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card">
+
+  <span
+    class="badge"
+    data-es="DATOS DE MISIÓN"
+    data-en="MISSION DATA"
+  >
+    DATOS DE MISIÓN
+  </span>
+
+  <h2
+    data-es="¿Qué nos dejaron?"
+    data-en="What did they leave us?"
+  >
+    ¿Qué nos dejaron?
+  </h2>
+
+  <div class="grid">
+
+    <div>
+
+      <h3
+        data-es="💧 AGUA"
+        data-en="💧 WATER"
+      >
+        💧 AGUA
+      </h3>
+
+      <p
+        data-es="Evidencias de que Marte tuvo agua líquida en el pasado."
+        data-en="Evidence that Mars had liquid water in the past."
+      >
+        Evidencias de que Marte tuvo
+        agua líquida en el pasado.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h3
+        data-es="🔬 CIENCIA"
+        data-en="🔬 SCIENCE"
+      >
+        🔬 CIENCIA
+      </h3>
+
+      <p
+        data-es="Nuevas pistas sobre la historia geológica del planeta."
+        data-en="New clues about the planet's geological history."
+      >
+        Nuevas pistas sobre la historia
+        geológica del planeta.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h3
+        data-es="🛰️ TECNOLOGÍA"
+        data-en="🛰️ TECHNOLOGY"
+      >
+        🛰️ TECNOLOGÍA
+      </h3>
+
+      <p
+        data-es="Experiencia para diseñar futuras misiones robóticas."
+        data-en="Experience that helped shape future robotic missions."
+      >
+        Experiencia para diseñar futuras
+        misiones robóticas.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="quiz card" data-correct="0">
+
+  <span
+    class="badge"
+    data-es="COMPROBACIÓN FINAL"
+    data-en="FINAL CHECK"
+  >
+    COMPROBACIÓN FINAL
+  </span>
+
+  <h2
+    data-es="¿Misión completada?"
+    data-en="Mission completed?"
+  >
+    ¿Misión completada?
+  </h2>
+
+  <p
+    data-es="¿Cuál era uno de los principales objetivos de Spirit y Opportunity?"
+    data-en="What was one of the main objectives of Spirit and Opportunity?"
+  >
+    ¿Cuál era uno de los principales objetivos
+    de Spirit y Opportunity?
+  </p>
+
+  <button
+    data-answer="0"
+    data-es="Buscar pistas sobre el agua antigua"
+    data-en="Search for clues about ancient water"
+  >
+    Buscar pistas sobre el agua antigua
+  </button>
+
+  <button
+    data-answer="1"
+    data-es="Construir una ciudad en Marte"
+    data-en="Build a city on Mars"
+  >
+    Construir una ciudad en Marte
+  </button>
+
+  <button
+    data-answer="2"
+    data-es="Buscar vida extraterrestre confirmada"
+    data-en="Search for confirmed extraterrestrial life"
+  >
+    Buscar vida extraterrestre confirmada
+  </button>
+
+  <button
+    data-answer="3"
+    data-es="Encontrar astronautas perdidos"
+    data-en="Find lost astronauts"
+  >
+    Encontrar astronautas perdidos
+  </button>
+
+  <div class="result"></div>
+
+</section>
+
+<section class="moral">
+
+  <h2
+    data-es="Pequeños robots. Una enorme historia."
+    data-en="Small robots. One enormous story."
+  >
+    Pequeños robots. Una enorme historia.
+  </h2>
+
+  <p
+    data-es="Spirit y Opportunity demostraron que una misión puede durar mucho más de lo esperado y enseñarnos cosas que nadie había visto antes."
+    data-en="Spirit and Opportunity showed that a mission can last much longer than expected and teach us things no one had seen before."
+  >
+    Spirit y Opportunity demostraron que una misión
+    puede durar mucho más de lo esperado y enseñarnos
+    cosas que nadie había visto antes.
+  </p>
+
+</section>
+
+</main>
+
+<footer>
+
+  <span
+    data-es="NASA // MISSION CONTROL"
+    data-en="NASA // MISSION CONTROL"
+  >
+    NASA // MISSION CONTROL
+  </span>
+
+  <br>
+
+  <span
+    class="small"
+    data-es="Proyecto educativo sobre exploración espacial"
+    data-en="Educational project about space exploration"
+  >
+    Proyecto educativo sobre exploración espacial
+  </span>
+
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+const mazeMap = [
+  [0,0,1,1,1,1,1,1,1],
+  [1,0,1,0,0,0,0,0,1],
+  [1,0,1,0,1,1,1,0,1],
+  [1,0,0,0,1,0,0,0,1],
+  [1,1,1,0,1,0,1,1,1],
+  [1,0,0,0,0,0,1,0,1],
+  [1,0,1,1,1,1,1,0,1],
+  [1,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,0,1]
+];
+
+let roverX = 0;
+let roverY = 0;
+
+const goalX = 7;
+const goalY = 8;
+
+function drawMaze() {
+
+  const maze = document.getElementById("maze");
+
+  maze.innerHTML = "";
+
+  for (let y = 0; y < mazeMap.length; y++) {
+
+    for (let x = 0; x < mazeMap[y].length; x++) {
+
+      const cell = document.createElement("div");
+
+      cell.classList.add("cell");
+
+      if (mazeMap[y][x] === 1) {
+        cell.classList.add("wall");
+      } else {
+        cell.classList.add("path");
+      }
+
+      if (x === roverX && y === roverY) {
+        cell.classList.add("player");
+        cell.textContent = "🤖";
+      }
+
+      if (x === goalX && y === goalY) {
+        cell.classList.add("goal");
+        cell.textContent = "📡";
+      }
+
+      maze.appendChild(cell);
+    }
+  }
+}
+
+function moveRover(dx, dy) {
+
+  const newX = roverX + dx;
+  const newY = roverY + dy;
+
+  if (
+    newY < 0 ||
+    newY >= mazeMap.length ||
+    newX < 0 ||
+    newX >= mazeMap[0].length
+  ) {
+    return;
+  }
+
+  if (mazeMap[newY][newX] === 1) {
+    return;
+  }
+
+  roverX = newX;
+  roverY = newY;
+
+  drawMaze();
+
+  if (
+    roverX === goalX &&
+    roverY === goalY
+  ) {
+
+    const currentLang =
+      localStorage.getItem("nasaLang") || "es";
+
+    document.getElementById("gameResult").textContent =
+      currentLang === "en"
+        ? "📡 SIGNAL ESTABLISHED! You helped the rover reach the base!"
+        : "📡 ¡SEÑAL ESTABLECIDA! ¡Ayudaste al rover a llegar a la base!";
+  }
+}
+
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "ArrowUp") {
+    moveRover(0, -1);
+  }
+
+  if (event.key === "ArrowDown") {
+    moveRover(0, 1);
+  }
+
+  if (event.key === "ArrowLeft") {
+    moveRover(-1, 0);
+  }
+
+  if (event.key === "ArrowRight") {
+    moveRover(1, 0);
+  }
+});
+
+drawMaze();
+</script>
+
+</body>
+</html>
+```

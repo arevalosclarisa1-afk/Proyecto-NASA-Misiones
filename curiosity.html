@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title data-es="Curiosity | NASA Mission Control" data-en="Curiosity | NASA Mission Control">
+    Curiosity | NASA Mission Control
+  </title>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .hero-curiosity {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,11,18,.97) 0%, rgba(5,11,18,.84) 43%, rgba(5,11,18,.45) 100%),
+        linear-gradient(rgba(5,11,18,.15), rgba(5,11,18,.88)),
+        url("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16457.jpg") center / cover no-repeat;
+    }
+
+    .hero-curiosity::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0 68%, rgba(57,217,255,.08) 68%, transparent 68.2%),
+        repeating-linear-gradient(90deg, transparent 0, transparent 79px, rgba(57,217,255,.035) 80px),
+        repeating-linear-gradient(0deg, transparent 0, transparent 49px, rgba(57,217,255,.035) 50px);
+      pointer-events: none;
+    }
+
+    .hero-curiosity .hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-curiosity h1 {
+      max-width: 850px;
+      text-shadow: 0 0 30px rgba(57,217,255,.16);
+    }
+
+    .mission-photo {
+      margin: 30px 0;
+      border: 1px solid var(--line);
+      background: #02070c;
+      box-shadow: var(--glow);
+      overflow: hidden;
+    }
+
+    .mission-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 650px;
+      object-fit: cover;
+    }
+
+    .photo-info {
+      padding: 14px 18px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .photo-info strong {
+      color: var(--cyan);
+    }
+
+    .photo-highlight {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(57,217,255,.12);
+    }
+
+    .photo-highlight img {
+      max-height: 720px;
+      object-fit: contain;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .image-card {
+      border: 1px solid var(--line);
+      background: #02070c;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: 290px;
+      object-fit: cover;
+    }
+
+    .image-card.wide {
+      grid-column: span 2;
+    }
+
+    .image-card.wide img {
+      height: 430px;
+    }
+
+    .image-caption {
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .image-caption strong {
+      color: var(--cyan);
+      font-family: monospace;
+      font-size: .75rem;
+      letter-spacing: 1px;
+    }
+
+    .image-caption h3 {
+      color: var(--text);
+      margin: 8px 0;
+    }
+
+    .image-caption p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .instrument-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .instrument-card::after {
+      content: attr(data-code);
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      color: rgba(57,217,255,.18);
+      font-family: monospace;
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .game-panel {
+      margin-top: 25px;
+      border: 1px solid var(--cyan);
+      background:
+        linear-gradient(145deg, rgba(57,217,255,.06), rgba(5,11,18,.98));
+      box-shadow: 0 0 30px rgba(57,217,255,.08);
+      padding: 28px;
+    }
+
+    .game-status {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .game-status strong {
+      color: var(--green);
+    }
+
+    .game-situation {
+      min-height: 150px;
+    }
+
+    .game-situation h3 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .game-situation p {
+      color: var(--muted);
+    }
+
+    .game-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .science-choice {
+      border: 1px solid var(--line);
+      background: #071018;
+      color: var(--text);
+      padding: 17px;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 4px;
+      transition: .2s ease;
+    }
+
+    .science-choice:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .science-choice strong {
+      display: block;
+      color: var(--cyan);
+      font-family: monospace;
+      margin-bottom: 5px;
+    }
+
+    .science-choice span {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .game-result {
+      min-height: 35px;
+      margin-top: 22px;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .game-progress {
+      display: flex;
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .game-progress span {
+      height: 5px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    .game-progress span.active {
+      background: var(--cyan);
+      box-shadow: 0 0 8px rgba(57,217,255,.35);
+    }
+
+    .game-progress span.done {
+      background: var(--green);
+    }
+
+    .mission-log {
+      border-left: 2px solid var(--cyan);
+      padding-left: 22px;
+    }
+
+    .log-item {
+      margin-bottom: 24px;
+    }
+
+    .log-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .log-item strong {
+      color: var(--green);
+      font-family: monospace;
+    }
+
+    .log-item p {
+      margin: 5px 0 0;
+      color: var(--muted);
+    }
+
+    @media(max-width:750px) {
+      .image-grid,
+      .game-options {
+        grid-template-columns: 1fr;
+      }
+
+      .image-card.wide {
+        grid-column: span 1;
+      }
+
+      .image-card img,
+      .image-card.wide img {
+        height: auto;
+        max-height: 450px;
+      }
+
+      .hero-curiosity {
+        background-position: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="nav">
+
+  <a class="logo" href="index.html">
+    NASA // MISSION CONTROL
+  </a>
+
+  <a href="spirit-opportunity.html"
+     data-es="Spirit + Opportunity"
+     data-en="Spirit + Opportunity">
+    Spirit + Opportunity
+  </a>
+
+  <a href="voyager.html"
+     data-es="Voyager"
+     data-en="Voyager">
+    Voyager
+  </a>
+
+  <a href="curiosity.html"
+     data-es="Curiosity"
+     data-en="Curiosity">
+    Curiosity
+  </a>
+
+  <a href="pioneer.html"
+     data-es="Pioneer"
+     data-en="Pioneer">
+    Pioneer
+  </a>
+
+  <button class="lang" id="langButton">
+    🇺🇸 English
+  </button>
+
+</nav>
+
+
+<header class="hero hero-curiosity">
+
+  <div class="hero-inner">
+
+    <span class="badge"
+          data-es="LABORATORIO CIENTÍFICO DE MARTE"
+          data-en="MARS SCIENCE LABORATORY">
+      LABORATORIO CIENTÍFICO DE MARTE
+    </span>
+
+    <h1>
+      CURIOSITY
+    </h1>
+
+    <p class="lead"
+       data-es="Un laboratorio científico con ruedas. Su misión: descubrir qué ocurrió en Marte cuando el planeta todavía era muy diferente."
+       data-en="A scientific laboratory on wheels. Its mission: discover what happened on Mars when the planet was very different.">
+      Un laboratorio científico con ruedas. Su misión: descubrir qué ocurrió en Marte cuando el planeta todavía era muy diferente.
+    </p>
+
+    <a class="btn"
+       href="#mission"
+       data-es="INICIAR MISIÓN →"
+       data-en="BEGIN MISSION →">
+      INICIAR MISIÓN →
+    </a>
+
+  </div>
+
+</header>
+
+
+<main class="container" id="mission">
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="MISSION CONTROL // MSL"
+          data-en="MISSION CONTROL // MSL">
+      MISSION CONTROL // MSL
+    </span>
+
+    <h2 data-es="ESTADO DEL ROVER"
+        data-en="ROVER STATUS">
+      ESTADO DEL ROVER
+    </h2>
+
+    <div class="grid">
+
+      <div>
+        <span class="small"
+              data-es="LANZAMIENTO"
+              data-en="LAUNCH">
+          LANZAMIENTO
+        </span>
+
+        <div class="stat">
+          2011
+        </div>
+      </div>
+
+      <div>
+        <span class="small"
+              data-es="ATERRIZAJE EN MARTE"
+              data-en="MARS LANDING">
+          ATERRIZAJE EN MARTE
+        </span>
+
+        <div class="stat">
+          2012
+        </div>
+      </div>
+
+      <div>
+        <span class="small"
+              data-es="UBICACIÓN"
+              data-en="LOCATION">
+          UBICACIÓN
+        </span>
+
+        <div class="stat">
+          GALE
+        </div>
+
+        <span class="small"
+              data-es="CRÁTER"
+              data-en="CRATER">
+          CRÁTER
+        </span>
+      </div>
+
+      <div>
+        <span class="small"
+              data-es="MISIÓN"
+              data-en="MISSION">
+          MISIÓN
+        </span>
+
+        <div class="stat"
+             data-es="CIENCIA"
+             data-en="SCIENCE">
+          CIENCIA
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="mission-photo photo-highlight">
+
+    <img
+      src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16239.jpg"
+      alt="Autorretrato de Curiosity en Marte">
+
+    <div class="photo-info">
+
+      <span>
+        <strong data-es="REGISTRO:" data-en="RECORD:">
+          REGISTRO:
+        </strong>
+
+        <span data-es="Autorretrato de Curiosity"
+              data-en="Curiosity self-portrait">
+          Autorretrato de Curiosity
+        </span>
+      </span>
+
+      <span>NASA/JPL-Caltech/MSSS</span>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="06 AGO 2012 // SEÑAL RECIBIDA"
+          data-en="AUG 06 2012 // SIGNAL RECEIVED">
+      06 AGO 2012 // SEÑAL RECIBIDA
+    </span>
+
+    <h2 data-es="Marte acaba de recibir un visitante."
+        data-en="Mars has just received a visitor.">
+      Marte acaba de recibir un visitante.
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="Después de viajar durante meses por el espacio, una nave espacial se acerca a Marte. Pero esta vez no lleva astronautas. Lleva un laboratorio robótico de casi una tonelada llamado Curiosity."
+       data-en="After traveling through space for months, a spacecraft approaches Mars. But this time it is not carrying astronauts. It is carrying a nearly one-ton robotic laboratory called Curiosity.">
+      Después de viajar durante meses por el espacio, una nave espacial se acerca a Marte. Pero esta vez no lleva astronautas. Lleva un laboratorio robótico de casi una tonelada llamado Curiosity.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="La misión Mars Science Laboratory tenía una pregunta enorme: ¿cómo era Marte en el pasado y pudo alguna vez tener ambientes capaces de sostener vida microbiana?"
+       data-en="The Mars Science Laboratory had a huge question: what was Mars like in the past, and could it ever have had environments capable of supporting microbial life?">
+      La misión Mars Science Laboratory tenía una pregunta enorme: ¿cómo era Marte en el pasado y pudo alguna vez tener ambientes capaces de sostener vida microbiana?
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Para investigarlo, Curiosity tendría que recorrer la superficie, estudiar rocas, perforar el suelo y reconstruir la historia de un planeta que hoy parece frío y desértico."
+       data-en="To investigate it, Curiosity would have to travel across the surface, study rocks, drill into the ground, and reconstruct the history of a planet that today looks cold and barren.">
+      Para investigarlo, Curiosity tendría que recorrer la superficie, estudiar rocas, perforar el suelo y reconstruir la historia de un planeta que hoy parece frío y desértico.
+    </p>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="ENTRADA // DESCENSO // ATERRIZAJE"
+          data-en="ENTRY // DESCENT // LANDING">
+      ENTRADA // DESCENSO // ATERRIZAJE
+    </span>
+
+    <h2 data-es="Los famosos 7 minutos de terror"
+        data-en="The famous 7 minutes of terror">
+      Los famosos 7 minutos de terror
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="Llegar a Marte no es simplemente aterrizar. La nave debía atravesar la atmósfera, reducir su velocidad y colocar el rover exactamente sobre la superficie."
+       data-en="Reaching Mars is not simply a matter of landing. The spacecraft had to enter the atmosphere, slow down, and place the rover precisely on the surface.">
+      Llegar a Marte no es simplemente aterrizar. La nave debía atravesar la atmósfera, reducir su velocidad y colocar el rover exactamente sobre la superficie.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Curiosity utilizó un escudo térmico, un paracaídas supersónico y motores para controlar el descenso. Pero todavía faltaba una última maniobra."
+       data-en="Curiosity used a heat shield, a supersonic parachute, and engines to control its descent. But one final maneuver was still needed.">
+      Curiosity utilizó un escudo térmico, un paracaídas supersónico y motores para controlar el descenso. Pero todavía faltaba una última maniobra.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="El Sky Crane descendió el rover utilizando cables mientras flotaba sobre la superficie marciana. Cuando Curiosity tocó el suelo, los cables se cortaron y la etapa de descenso se alejó."
+       data-en="The Sky Crane lowered the rover using cables while hovering above the Martian surface. When Curiosity touched the ground, the cables were cut and the descent stage flew away.">
+      El Sky Crane descendió el rover utilizando cables mientras flotaba sobre la superficie marciana. Cuando Curiosity tocó el suelo, los cables se cortaron y la etapa de descenso se alejó.
+    </p>
+
+    <div class="callout">
+
+      <h2 data-es="ATERRIZAJE CONFIRMADO"
+          data-en="LANDING CONFIRMED">
+        ATERRIZAJE CONFIRMADO
+      </h2>
+
+      <p data-es="Curiosity estaba en Marte."
+         data-en="Curiosity was on Mars.">
+        Curiosity estaba en Marte.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="CRONOLOGÍA DE MISIÓN"
+          data-en="MISSION TIMELINE">
+      CRONOLOGÍA DE MISIÓN
+    </span>
+
+    <h2 data-es="El viaje hasta Marte"
+        data-en="The journey to Mars">
+      El viaje hasta Marte
+    </h2>
+
+    <div class="timeline">
+
+      <article>
+
+        <h3>2011 — LAUNCH</h3>
+
+        <p data-es="Mars Science Laboratory despega desde la Tierra rumbo a Marte."
+           data-en="Mars Science Laboratory launches from Earth toward Mars.">
+          Mars Science Laboratory despega desde la Tierra rumbo a Marte.
+        </p>
+
+      </article>
+
+      <article>
+
+        <h3>2012 — LANDING</h3>
+
+        <p data-es="Curiosity aterriza dentro del cráter Gale."
+           data-en="Curiosity lands inside Gale Crater.">
+          Curiosity aterriza dentro del cráter Gale.
+        </p>
+
+      </article>
+
+      <article>
+
+        <h3>2012 — FIRST SCIENCE</h3>
+
+        <p data-es="El rover comienza a analizar las rocas y el suelo de Marte."
+           data-en="The rover begins analyzing Martian rocks and soil.">
+          El rover comienza a analizar las rocas y el suelo de Marte.
+        </p>
+
+      </article>
+
+      <article>
+
+        <h3>2014 — MOUNT SHARP</h3>
+
+        <p data-es="Curiosity comienza su ascenso por las capas geológicas de Mount Sharp."
+           data-en="Curiosity begins climbing the geological layers of Mount Sharp.">
+          Curiosity comienza su ascenso por las capas geológicas de Mount Sharp.
+        </p>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="LABORATORIO // SOBRE RUEDAS"
+          data-en="LABORATORY // ON WHEELS">
+      LABORATORIO // SOBRE RUEDAS
+    </span>
+
+    <h2 data-es="Curiosity no solo mira. Investiga."
+        data-en="Curiosity does not just look. It investigates.">
+      Curiosity no solo mira. Investiga.
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="El rover lleva instrumentos científicos que permiten observar el terreno, estudiar rocas desde distancia, examinar detalles diminutos y perforar superficies para obtener muestras."
+       data-en="The rover carries scientific instruments that allow it to observe terrain, study rocks from a distance, examine tiny details, and drill surfaces to obtain samples.">
+      El rover lleva instrumentos científicos que permiten observar el terreno, estudiar rocas desde distancia, examinar detalles diminutos y perforar superficies para obtener muestras.
+    </p>
+
+    <div class="grid">
+
+      <div class="card instrument-card" data-code="CAM">
+
+        <h3 data-es="CÁMARAS"
+            data-en="CAMERAS">
+          CÁMARAS
+        </h3>
+
+        <p data-es="Capturan imágenes del terreno y ayudan a los científicos a decidir dónde investigar."
+           data-en="They capture images of the terrain and help scientists decide where to investigate.">
+          Capturan imágenes del terreno y ayudan a los científicos a decidir dónde investigar.
+        </p>
+
+      </div>
+
+
+      <div class="card instrument-card" data-code="LAS">
+
+        <h3 data-es="CHEMCAM"
+            data-en="CHEMCAM">
+          CHEMCAM
+        </h3>
+
+        <p data-es="Puede estudiar la composición de algunas rocas desde cierta distancia utilizando un láser."
+           data-en="It can study the composition of some rocks from a distance using a laser.">
+          Puede estudiar la composición de algunas rocas desde cierta distancia utilizando un láser.
+        </p>
+
+      </div>
+
+
+      <div class="card instrument-card" data-code="MAH">
+
+        <h3>MAHLI</h3>
+
+        <p data-es="Una cámara situada en el brazo robótico capaz de observar detalles muy pequeños."
+           data-en="A camera mounted on the robotic arm capable of observing very small details.">
+          Una cámara situada en el brazo robótico capaz de observar detalles muy pequeños.
+        </p>
+
+      </div>
+
+
+      <div class="card instrument-card" data-code="DRL">
+
+        <h3 data-es="DRILL"
+            data-en="DRILL">
+          DRILL
+        </h3>
+
+        <p data-es="Perfora rocas para obtener material del interior, donde puede conservarse información sobre el pasado."
+           data-en="It drills into rocks to obtain material from inside, where information about the past may be preserved.">
+          Perfora rocas para obtener material del interior, donde puede conservarse información sobre el pasado.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="mission-photo">
+
+    <img
+      src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16729.jpg"
+      alt="Muestra de roca obtenida por Curiosity">
+
+    <div class="photo-info">
+
+      <span>
+        <strong data-es="LABORATORIO:" data-en="LABORATORY:">
+          LABORATORIO:
+        </strong>
+
+        <span data-es="Primera muestra de roca perforada"
+              data-en="First drilled rock sample">
+          Primera muestra de roca perforada
+        </span>
+      </span>
+
+      <span>NASA/JPL-Caltech/MSSS</span>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="OBJETIVO // GALE CRATER"
+          data-en="TARGET // GALE CRATER">
+      OBJETIVO // GALE CRATER
+    </span>
+
+    <h2 data-es="Una montaña guarda la historia de Marte."
+        data-en="A mountain holds the history of Mars.">
+      Una montaña guarda la historia de Marte.
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="Curiosity aterrizó en el cráter Gale porque era un lugar especialmente interesante. En su centro se encuentra Mount Sharp, una montaña formada por capas de roca."
+       data-en="Curiosity landed in Gale Crater because it was a particularly interesting location. At its center stands Mount Sharp, a mountain made of layers of rock.">
+      Curiosity aterrizó en el cráter Gale porque era un lugar especialmente interesante. En su centro se encuentra Mount Sharp, una montaña formada por capas de roca.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Cada capa puede conservar pistas sobre las condiciones que existieron en Marte en diferentes momentos de su historia. Por eso Curiosity estudia las rocas como si fueran páginas de un libro."
+       data-en="Each layer can preserve clues about conditions that existed on Mars at different points in its history. That is why Curiosity studies rocks as if they were pages of a book.">
+      Cada capa puede conservar pistas sobre las condiciones que existieron en Marte en diferentes momentos de su historia. Por eso Curiosity estudia las rocas como si fueran páginas de un libro.
+    </p>
+
+  </section>
+
+
+  <section class="mission-photo photo-highlight">
+
+    <img
+      src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/contentdamsciencepsdphotojournalpiapia26pia26671PIA26671.jpg"
+      alt="Panorama de Gale Crater capturado por Curiosity">
+
+    <div class="photo-info">
+
+      <span>
+        <strong data-es="VISTA:" data-en="VIEW:">
+          VISTA:
+        </strong>
+
+        <span data-es="Gale Crater y Peace Vallis"
+              data-en="Gale Crater and Peace Vallis">
+          Gale Crater y Peace Vallis
+        </span>
+      </span>
+
+      <span data-es="Curiosity / Mastcam"
+            data-en="Curiosity / Mastcam">
+        Curiosity / Mastcam
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="REGISTRO CIENTÍFICO"
+          data-en="SCIENTIFIC RECORD">
+      REGISTRO CIENTÍFICO
+    </span>
+
+    <h2 data-es="¿Y si Marte alguna vez fue diferente?"
+        data-en="What if Mars was once different?">
+      ¿Y si Marte alguna vez fue diferente?
+    </h2>
+
+    <p style="text-align: justify;"
+       data-es="Las investigaciones de Curiosity proporcionaron evidencias de que el antiguo Marte tuvo ambientes que pudieron haber sido habitables para formas de vida microbiana."
+       data-en="Curiosity's investigations provided evidence that ancient Mars had environments that could have been habitable for microbial life.">
+      Las investigaciones de Curiosity proporcionaron evidencias de que el antiguo Marte tuvo ambientes que pudieron haber sido habitables para formas de vida microbiana.
+    </p>
+
+    <p style="text-align: justify;"
+       data-es="Eso no significa que Curiosity haya encontrado vida. La pregunta científica es más cuidadosa: ¿existieron alguna vez las condiciones necesarias para que la vida pudiera existir?"
+       data-en="That does not mean Curiosity found life. The scientific question is more careful: did the necessary conditions for life to exist ever occur?">
+      Eso no significa que Curiosity haya encontrado vida. La pregunta científica es más cuidadosa: ¿existieron alguna vez las condiciones necesarias para que la vida pudiera existir?
+    </p>
+
+    <div class="callout">
+
+      <h2 data-es="PREGUNTA CIENTÍFICA"
+          data-en="SCIENTIFIC QUESTION">
+        PREGUNTA CIENTÍFICA
+      </h2>
+
+      <p data-es="¿Qué era Marte cuando tenía agua y ambientes más favorables?"
+         data-en="What was Mars like when it had water and more favorable environments?">
+        ¿Qué era Marte cuando tenía agua y ambientes más favorables?
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="ARCHIVO DE EXPLORACIÓN"
+          data-en="EXPLORATION ARCHIVE">
+      ARCHIVO DE EXPLORACIÓN
+    </span>
+
+    <h2 data-es="Curiosity sigue encontrando cosas extrañas."
+        data-en="Curiosity keeps finding strange things.">
+      Curiosity sigue encontrando cosas extrañas.
+    </h2>
+
+    <div class="image-grid">
+
+      <article class="image-card">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26633.jpg"
+          alt="Roca marciana con forma de coral">
+
+        <div class="image-caption">
+
+          <strong data-es="MAHLI // PAPOSO"
+                  data-en="MAHLI // PAPOSO">
+            MAHLI // PAPOSO
+          </strong>
+
+          <h3 data-es="Una roca que parece coral"
+              data-en="A rock that looks like coral">
+            Una roca que parece coral
+          </h3>
+
+          <p data-es="Curiosity observó de cerca esta formación erosionada por el viento. Sus formas se relacionan con procesos antiguos en los que intervino agua."
+             data-en="Curiosity examined this wind-eroded formation up close. Its shapes are related to ancient processes involving water.">
+            Curiosity observó de cerca esta formación erosionada por el viento. Sus formas se relacionan con procesos antiguos en los que intervino agua.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="image-card">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26633.jpg"
+          alt="Detalle de una formación rocosa marciana">
+
+        <div class="image-caption">
+
+          <strong data-es="MARS // GEOLOGY"
+                  data-en="MARS // GEOLOGY">
+            MARS // GEOLOGY
+          </strong>
+
+          <h3 data-es="El viento también escribe"
+              data-en="Wind also writes">
+            El viento también escribe
+          </h3>
+
+          <p data-es="Durante millones de años, el viento puede erosionar materiales más blandos y dejar estructuras resistentes expuestas."
+             data-en="Over millions of years, wind can erode softer material and leave resistant structures exposed.">
+            Durante millones de años, el viento puede erosionar materiales más blandos y dejar estructuras resistentes expuestas.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="image-card wide">
+
+        <img
+          src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26559.jpg"
+          alt="Panorama de las formaciones boxwork de Marte">
+
+        <div class="image-caption">
+
+          <strong data-es="MOUNT SHARP // BOXWORK"
+                  data-en="MOUNT SHARP // BOXWORK">
+            MOUNT SHARP // BOXWORK
+          </strong>
+
+          <h3 data-es="Las redes que dejó el agua"
+              data-en="The networks left by water">
+            Las redes que dejó el agua
+          </h3>
+
+          <p data-es="Las formaciones boxwork parecen redes o telarañas gigantes vistas desde arriba. Se cree que se formaron cuando el agua subterránea circuló por grietas de las rocas y dejó minerales endurecidos."
+             data-en="Boxwork formations look like giant networks or spiderwebs when viewed from above. They are believed to have formed when groundwater moved through cracks in rocks and left hardened minerals behind.">
+            Las formaciones boxwork parecen redes o telarañas gigantes vistas desde arriba. Se cree que se formaron cuando el agua subterránea circuló por grietas de las rocas y dejó minerales endurecidos.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <section class="game-panel" id="scienceGame">
+
+    <div class="game-status">
+
+      <span>
+        <strong>MSL // SCIENCE MODE</strong>
+      </span>
+
+      <span>
+        <span data-es="CASO" data-en="CASE">CASO</span>
+        <span id="caseNumber">01</span>
+        / 03
+      </span>
+
+    </div>
+
+    <h2 data-es="MARS SCIENCE // INVESTIGATION"
+        data-en="MARS SCIENCE // INVESTIGATION">
+      MARS SCIENCE // INVESTIGATION
+    </h2>
+
+    <p data-es="Mission Control recibió una nueva señal. Curiosity encontró algo interesante. Elegí qué instrumento utilizarías primero."
+       data-en="Mission Control received a new signal. Curiosity found something interesting. Choose which instrument you would use first.">
+      Mission Control recibió una nueva señal. Curiosity encontró algo interesante. Elegí qué instrumento utilizarías primero.
+    </p>
+
+    <div class="game-progress">
+      <span id="progress1" class="active"></span>
+      <span id="progress2"></span>
+      <span id="progress3"></span>
+    </div>
+
+    <div class="game-situation">
+
+      <h3 id="situationTitle"></h3>
+
+      <p id="situationText"></p>
+
+    </div>
+
+    <div class="game-options">
+
+      <button class="science-choice" data-tool="cam">
+
+        <strong>MASTCAM</strong>
+
+        <span
+          data-es="Observar y registrar el terreno."
+          data-en="Observe and record the terrain.">
+          Observar y registrar el terreno.
+        </span>
+
+      </button>
+
+
+      <button class="science-choice" data-tool="chemcam">
+
+        <strong>CHEMCAM</strong>
+
+        <span
+          data-es="Analizar una roca a distancia con láser."
+          data-en="Analyze a rock from a distance using a laser.">
+          Analizar una roca a distancia con láser.
+        </span>
+
+      </button>
+
+
+      <button class="science-choice" data-tool="drill">
+
+        <strong>DRILL</strong>
+
+        <span
+          data-es="Perforar una roca y obtener material del interior."
+          data-en="Drill into a rock and obtain material from inside.">
+          Perforar una roca y obtener material del interior.
+        </span>
+
+      </button>
+
+    </div>
+
+    <div class="game-result" id="gameResult"></div>
+
+  </section>
+
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="ARCHIVO DE DATOS"
+          data-en="DATA ARCHIVE">
+      ARCHIVO DE DATOS
+    </span>
+
+    <div class="mission-log">
+
+      <div class="log-item">
+
+        <strong>LOG 01 // ROCKS</strong>
+
+        <p data-es="Las rocas pueden conservar información sobre las condiciones ambientales del pasado."
+           data-en="Rocks can preserve information about environmental conditions in the past.">
+          Las rocas pueden conservar información sobre las condiciones ambientales del pasado.
+        </p>
+
+      </div>
+
+
+      <div class="log-item">
+
+        <strong>LOG 02 // WATER</strong>
+
+        <p data-es="Las evidencias geológicas indican que el antiguo Marte tuvo ambientes donde existió agua líquida."
+           data-en="Geological evidence indicates that ancient Mars had environments where liquid water existed.">
+          Las evidencias geológicas indican que el antiguo Marte tuvo ambientes donde existió agua líquida.
+        </p>
+
+      </div>
+
+
+      <div class="log-item">
+
+        <strong>LOG 03 // LIFE</strong>
+
+        <p data-es="Curiosity estudia si Marte tuvo condiciones habitables, pero no ha encontrado evidencia de vida."
+           data-en="Curiosity studies whether Mars had habitable conditions, but it has not found evidence of life.">
+          Curiosity estudia si Marte tuvo condiciones habitables, pero no ha encontrado evidencia de vida.
+        </p>
+
+      </div>
+
+
+      <div class="log-item">
+
+        <strong>LOG 04 // EXPLORATION</strong>
+
+        <p data-es="Cada nuevo descubrimiento genera nuevas preguntas. Esa es precisamente la razón por la que la misión continúa."
+           data-en="Every new discovery creates new questions. That is precisely why the mission continues.">
+          Cada nuevo descubrimiento genera nuevas preguntas. Esa es precisamente la razón por la que la misión continúa.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="moral">
+
+    <h2 data-es="Curiosity no busca una respuesta fácil."
+        data-en="Curiosity is not looking for an easy answer.">
+      Curiosity no busca una respuesta fácil.
+    </h2>
+
+    <p data-es="Cada roca, cada fotografía y cada muestra puede contar una parte de la historia de Marte. Y mientras el rover continúa explorando, nosotros seguimos aprendiendo a hacer preguntas más grandes."
+       data-en="Every rock, photograph, and sample can tell part of Mars' story. And as the rover continues exploring, we keep learning to ask bigger questions.">
+      Cada roca, cada fotografía y cada muestra puede contar una parte de la historia de Marte. Y mientras el rover continúa explorando, nosotros seguimos aprendiendo a hacer preguntas más grandes.
+    </p>
+
+    <p data-es="Tal vez la gran misión de Curiosity no sea encontrar una respuesta, sino enseñarnos dónde buscarla."
+       data-en="Perhaps Curiosity's greatest mission is not to find an answer, but to teach us where to look for one.">
+      Tal vez la gran misión de Curiosity no sea encontrar una respuesta, sino enseñarnos dónde buscarla.
+    </p>
+
+  </section>
+
+
+</main>
+
+
+<footer>
+
+  NASA // MISSION CONTROL
+
+  <br>
+
+  <span class="small"
+        data-es="Proyecto educativo sobre exploración espacial"
+        data-en="Educational project about space exploration">
+    Proyecto educativo sobre exploración espacial
+  </span>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+<script>
+  const cases = [
+    {
+      esTitle: "CASO 01 // UNA ROCA A DISTANCIA",
+      enTitle: "CASE 01 // A ROCK FROM A DISTANCE",
+      esText: "El rover está frente a una roca interesante. Todavía no necesita tocarla. Querés conocer su composición antes de acercarte.",
+      enText: "The rover is facing an interesting rock. It does not need to touch it yet. You want to know its composition before getting closer.",
+      correct: "chemcam",
+      esSuccess: "DECISIÓN CORRECTA. ChemCam puede utilizar un láser para estudiar la composición de una roca desde distancia.",
+      enSuccess: "CORRECT DECISION. ChemCam can use a laser to study the composition of a rock from a distance.",
+      esFail: "No es la mejor primera opción. Pensá en un instrumento que pueda estudiar la composición de la roca sin tocarla.",
+      enFail: "Not the best first choice. Think of an instrument that can study the rock's composition without touching it."
+    },
+    {
+      esTitle: "CASO 02 // NECESITAMOS VER MÁS",
+      enTitle: "CASE 02 // WE NEED A BETTER VIEW",
+      esText: "El equipo encontró una zona extraña en el terreno. Antes de decidir qué hacer, necesitás una imagen detallada del lugar.",
+      enText: "The team found a strange area in the terrain. Before deciding what to do, you need a detailed image of the area.",
+      correct: "cam",
+      esSuccess: "DECISIÓN CORRECTA. Las cámaras permiten estudiar el terreno y elegir dónde investigar después.",
+      enSuccess: "CORRECT DECISION. The cameras allow scientists to study the terrain and decide where to investigate next.",
+      esFail: "Todavía no. Primero necesitás observar el terreno antes de decidir qué estudiar en detalle.",
+      enFail: "Not yet. First you need to observe the terrain before deciding what to study in detail."
+    },
+    {
+      esTitle: "CASO 03 // HAY HISTORIA EN EL INTERIOR",
+      enTitle: "CASE 03 // THERE IS HISTORY INSIDE",
+      esText: "Una roca parece especialmente interesante. El equipo necesita material del interior para analizarlo.",
+      enText: "A rock looks especially interesting. The team needs material from inside it for analysis.",
+      correct: "drill",
+      esSuccess: "DECISIÓN CORRECTA. El taladro permite obtener material del interior de una roca para su análisis.",
+      enSuccess: "CORRECT DECISION. The drill allows the rover to obtain material from inside a rock for analysis.",
+      esFail: "Esta vez necesitás llegar al interior de la roca. Elegí la herramienta que puede perforarla.",
+      enFail: "This time you need to reach inside the rock. Choose the tool that can drill into it."
+    }
+  ];
+
+  let currentCase = 0;
+
+  function currentLanguage() {
+    return localStorage.getItem("nasaLang") === "en" ? "en" : "es";
+  }
+
+  function loadCase() {
+    const language = currentLanguage();
+    const item = cases[currentCase];
+
+    document.getElementById("caseNumber").textContent = String(currentCase + 1).padStart(2, "0");
+    document.getElementById("situationTitle").textContent = language === "en" ? item.enTitle : item.esTitle;
+    document.getElementById("situationText").textContent = language === "en" ? item.enText : item.esText;
+    document.getElementById("gameResult").textContent = "";
+
+    document.getElementById("progress1").className = currentCase === 0 ? "active" : "done";
+    document.getElementById("progress2").className = currentCase === 1 ? "active" : currentCase > 1 ? "done" : "";
+    document.getElementById("progress3").className = currentCase === 2 ? "active" : "";
+
+    document.querySelectorAll(".science-choice").forEach(button => {
+      button.disabled = false;
+      button.style.opacity = "1";
+    });
+  }
+
+  document.querySelectorAll(".science-choice").forEach(button => {
+    button.addEventListener("click", () => {
+      const language = currentLanguage();
+      const selected = button.dataset.tool;
+      const item = cases[currentCase];
+      const result = document.getElementById("gameResult");
+
+      if (selected === item.correct) {
+        result.textContent = language === "en" ? item.enSuccess : item.esSuccess;
+
+        document.querySelectorAll(".science-choice").forEach(choice => {
+          choice.disabled = true;
+          choice.style.opacity = ".45";
+        });
+
+        setTimeout(() => {
+          if (currentCase < cases.length - 1) {
+            currentCase++;
+            loadCase();
+          } else {
+            result.textContent = language === "en"
+              ? "MISSION COMPLETE. You investigated all three situations like a real science team."
+              : "MISIÓN COMPLETADA. Investigaste las tres situaciones como un verdadero equipo científico.";
+
+            document.querySelectorAll(".science-choice").forEach(choice => {
+              choice.style.display = "none";
+            });
+          }
+        }, 1800);
+
+      } else {
+        result.textContent = language === "en" ? item.enFail : item.esFail;
+      }
+    });
+  });
+
+  document.getElementById("langButton").addEventListener("click", () => {
+    setTimeout(loadCase, 50);
+  });
+
+  loadCase();
+</script>
+
+</body>
+</html>

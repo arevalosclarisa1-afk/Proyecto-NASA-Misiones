@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pioneer 10 + 11 | NASA Mission Control</title>
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+.badge::before{
+  content:none;
+}
+
+.hero-pioneer{
+  min-height:78vh;
+  display:grid;
+  align-items:end;
+  padding:80px 6%;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(5,11,18,.9),rgba(5,11,18,.45),rgba(5,11,18,.82)),
+    linear-gradient(0deg,rgba(5,11,18,.98),transparent 55%),
+    url("https://science.nasa.gov/wp-content/uploads/2023/04/jupiter_pioneer_10_art-jpg.webp?format=png&w=4096") center/cover;
+}
+
+.hero-pioneer::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,transparent 49.8%,rgba(57,217,255,.08) 50%,transparent 50.2%),
+    linear-gradient(0deg,transparent 49.8%,rgba(57,217,255,.06) 50%,transparent 50.2%);
+  background-size:100% 100%,100% 80px;
+  pointer-events:none;
+}
+
+.hero-pioneer .hero-inner{
+  position:relative;
+  z-index:2;
+  max-width:1050px;
+}
+
+.hero-pioneer h1{
+  max-width:900px;
+  text-shadow:0 0 30px rgba(0,0,0,.9);
+}
+
+.hero-kicker{
+  font-family:monospace;
+  color:var(--green);
+  letter-spacing:2px;
+  font-size:.78rem;
+  margin-bottom:14px;
+}
+
+.hero-kicker::before{
+  content:"● ";
+  color:var(--green);
+}
+
+.pioneer-status{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.pioneer-status span{
+  padding:7px 11px;
+  border:1px solid var(--line);
+  background:rgba(5,11,18,.78);
+  color:var(--muted);
+  font-family:monospace;
+  font-size:.75rem;
+}
+
+.pioneer-status strong{
+  color:var(--green);
+}
+
+.museum-intro{
+  text-align:center;
+  max-width:800px;
+  margin:0 auto 40px;
+}
+
+.museum-intro h2{
+  margin-bottom:12px;
+}
+
+.museum-label{
+  display:block;
+  color:var(--yellow);
+  font-family:monospace;
+  font-size:.75rem;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+.museum-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.museum-piece{
+  background:#050b12;
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--glow);
+}
+
+.museum-piece.featured{
+  grid-column:span 2;
+}
+
+.museum-piece img{
+  display:block;
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+
+.museum-piece.featured img{
+  height:520px;
+}
+
+.museum-piece:hover img{
+  transform:scale(1.025);
+}
+
+.museum-caption{
+  padding:18px 20px;
+  border-top:1px solid var(--line);
+}
+
+.museum-caption h3{
+  margin:0 0 7px;
+}
+
+.museum-caption p{
+  margin:0;
+  color:var(--muted);
+}
+
+.museum-code{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+  color:var(--cyan);
+  font-family:monospace;
+  font-size:.7rem;
+  text-transform:uppercase;
+}
+
+.signal-section{
+  margin:55px 0;
+  padding:45px 30px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(57,217,255,.1),transparent 45%),
+    #050b12;
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+
+.signal-section::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:1px;
+  background:var(--cyan);
+  box-shadow:0 0 18px var(--cyan);
+}
+
+.signal-title{
+  text-align:center;
+  font-family:monospace;
+  color:var(--cyan);
+  letter-spacing:3px;
+  font-size:.8rem;
+}
+
+.signal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:30px;
+}
+
+.signal-card{
+  padding:28px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.015);
+  text-align:center;
+}
+
+.signal-card h3{
+  font-family:monospace;
+  font-size:1.4rem;
+  margin:0 0 10px;
+}
+
+.signal-date{
+  font-size:2rem;
+  font-weight:900;
+  color:var(--cyan);
+  font-family:monospace;
+}
+
+.signal-state{
+  color:var(--red);
+  font-family:monospace;
+  font-size:.75rem;
+  letter-spacing:2px;
+  margin-top:8px;
+}
+
+.signal-line{
+  width:100%;
+  height:1px;
+  background:var(--line);
+  margin:22px 0;
+}
+
+.trajectory{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:15px;
+  margin-top:28px;
+}
+
+.trajectory-path{
+  height:2px;
+  background:linear-gradient(90deg,var(--cyan),transparent);
+  position:relative;
+}
+
+.trajectory-path.reverse{
+  background:linear-gradient(90deg,transparent,var(--cyan));
+}
+
+.trajectory-path::after{
+  content:"";
+  position:absolute;
+  top:-4px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 15px var(--cyan);
+}
+
+.trajectory-path:first-child::after{
+  right:0;
+}
+
+.trajectory-path.reverse::after{
+  left:0;
+}
+
+.trajectory-center{
+  width:12px;
+  height:12px;
+  border:2px solid var(--green);
+  border-radius:50%;
+  box-shadow:0 0 15px rgba(101,230,165,.5);
+}
+
+.destination-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:25px;
+}
+
+.destination{
+  padding:28px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+}
+
+.destination .star{
+  font-size:2rem;
+  color:var(--yellow);
+}
+
+.destination h3{
+  margin:8px 0;
+}
+
+.destination .years{
+  color:var(--cyan);
+  font-family:monospace;
+  font-size:1.3rem;
+}
+
+.plaque-room{
+  padding:45px 25px;
+  margin:55px 0;
+  background:
+    radial-gradient(circle at center,rgba(244,211,94,.08),transparent 45%),
+    #070b10;
+  border:1px solid rgba(244,211,94,.3);
+  text-align:center;
+}
+
+.plaque-room .room-label{
+  color:var(--yellow);
+  font-family:monospace;
+  letter-spacing:3px;
+  font-size:.75rem;
+}
+
+.plaque-room img{
+  display:block;
+  width:min(700px,100%);
+  margin:30px auto;
+  border:1px solid rgba(244,211,94,.4);
+  box-shadow:0 0 45px rgba(244,211,94,.08);
+}
+
+.plaque-details{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  max-width:950px;
+  margin:30px auto 0;
+}
+
+.plaque-detail{
+  border:1px solid var(--line);
+  padding:18px 12px;
+  background:rgba(255,255,255,.02);
+}
+
+.plaque-detail strong{
+  display:block;
+  color:var(--yellow);
+  margin-bottom:5px;
+}
+
+.ghost{
+  margin:55px 0;
+  padding:60px 25px;
+  text-align:center;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at center,rgba(57,217,255,.08),transparent 50%),
+    linear-gradient(180deg,#071019,#03070b);
+  position:relative;
+  overflow:hidden;
+}
+
+.ghost-word{
+  font-family:monospace;
+  color:var(--muted);
+  letter-spacing:5px;
+  font-size:.75rem;
+}
+
+.ghost h2{
+  font-size:clamp(2.5rem,7vw,6rem);
+  margin:10px 0;
+  color:var(--text);
+}
+
+.ghost h2 span{
+  color:var(--cyan);
+}
+
+.ghost p{
+  max-width:750px;
+  margin:auto;
+  color:var(--muted);
+  font-size:1.1rem;
+}
+
+.archive{
+  margin-top:35px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.archive-card{
+  padding:20px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+}
+
+.archive-card strong{
+  color:var(--cyan);
+  display:block;
+  font-family:monospace;
+  margin-bottom:7px;
+}
+
+.ghost-route{
+  margin-top:35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+}
+
+.route-point{
+  padding:10px 14px;
+  border:1px solid var(--line);
+  background:#071018;
+  font-family:monospace;
+  font-size:.7rem;
+}
+
+.route-line{
+  width:80px;
+  height:1px;
+  background:var(--cyan);
+}
+
+.challenge{
+  margin-top:30px;
+}
+
+.challenge-intro{
+  color:var(--muted);
+}
+
+.challenge-progress{
+  height:5px;
+  background:#061018;
+  border:1px solid var(--line);
+  margin:22px 0;
+  overflow:hidden;
+}
+
+.challenge-progress span{
+  display:block;
+  width:0%;
+  height:100%;
+  background:var(--green);
+  transition:width .3s ease;
+}
+
+.challenge-case{
+  padding:25px;
+  border:1px solid var(--line);
+  background:#071018;
+}
+
+.case-number{
+  color:var(--cyan);
+  font-family:monospace;
+  font-size:.75rem;
+}
+
+.case-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.case-options button{
+  padding:15px;
+  border:1px solid var(--line);
+  background:#050b12;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+  font:inherit;
+}
+
+.case-options button:hover{
+  border-color:var(--cyan);
+  background:rgba(57,217,255,.05);
+}
+
+.case-result{
+  margin-top:18px;
+  min-height:24px;
+  color:var(--green);
+  font-weight:800;
+}
+
+.final-message{
+  text-align:center;
+  padding:55px 25px;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(57,217,255,.06),rgba(101,230,165,.04));
+}
+
+.final-message h2{
+  color:var(--text);
+}
+
+.final-message h2 span{
+  color:var(--cyan);
+}
+
+@media(max-width:700px){
+  .hero-pioneer{
+    min-height:65vh;
+    padding:60px 5%;
+    background-position:center;
+  }
+
+  .museum-grid,
+  .signal-grid,
+  .destination-grid{
+    grid-template-columns:1fr;
+  }
+
+  .museum-piece.featured{
+    grid-column:span 1;
+  }
+
+  .museum-piece img,
+  .museum-piece.featured img{
+    height:300px;
+  }
+
+  .plaque-details,
+  .archive{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .case-options{
+    grid-template-columns:1fr;
+  }
+
+  .ghost-route{
+    flex-wrap:wrap;
+  }
+
+  .route-line{
+    width:35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <a class="logo" href="index.html">NASA // MISSION CONTROL</a>
+
+  <a href="spirit-opportunity.html"
+     data-es="Spirit + Opportunity"
+     data-en="Spirit + Opportunity">
+    Spirit + Opportunity
+  </a>
+
+  <a href="voyager.html"
+     data-es="Voyager"
+     data-en="Voyager">
+    Voyager
+  </a>
+
+  <a href="curiosity.html"
+     data-es="Curiosity"
+     data-en="Curiosity">
+    Curiosity
+  </a>
+
+  <a href="pioneer.html"
+     data-es="Pioneer"
+     data-en="Pioneer">
+    Pioneer
+  </a>
+
+  <button class="lang" id="langButton">🇺🇸 English</button>
+</nav>
+
+<header class="hero hero-pioneer">
+  <div class="hero-inner">
+
+    <div class="hero-kicker"
+         data-es="ARCHIVO DE EXPLORACIÓN // MISIÓN HISTÓRICA"
+         data-en="EXPLORATION ARCHIVE // HISTORIC MISSION">
+      ARCHIVO DE EXPLORACIÓN // MISIÓN HISTÓRICA
+    </div>
+
+    <span class="badge"
+          data-es="GALACTIC GHOST SHIPS"
+          data-en="GALACTIC GHOST SHIPS">
+      GALACTIC GHOST SHIPS
+    </span>
+
+    <h1 data-es="PIONEER 10 + PIONEER 11"
+        data-en="PIONEER 10 + PIONEER 11">
+      PIONEER 10 + PIONEER 11
+    </h1>
+
+    <p class="lead"
+       data-es="Dos sondas que fueron primero. Cruzaron el cinturón de asteroides, visitaron Júpiter y Saturno y, cuando la Tierra dejó de escucharlas, continuaron su viaje hacia el espacio profundo."
+       data-en="Two probes that went first. They crossed the asteroid belt, visited Jupiter and Saturn, and when Earth stopped hearing them, they continued their journey into deep space.">
+      Dos sondas que fueron primero. Cruzaron el cinturón de asteroides,
+      visitaron Júpiter y Saturno y, cuando la Tierra dejó de escucharlas,
+      continuaron su viaje hacia el espacio profundo.
+    </p>
+
+    <div class="pioneer-status">
+      <span><strong>1972</strong> — PIONEER 10</span>
+      <span><strong>1973</strong> — PIONEER 11</span>
+      <span><strong>STATUS</strong> — SILENT</span>
+    </div>
+
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="MISSION STATUS"
+          data-en="MISSION STATUS">
+      MISSION STATUS
+    </span>
+
+    <h2 data-es="Antes de las Voyager, estuvieron ellas."
+        data-en="Before Voyager, there were the Pioneers.">
+      Antes de las Voyager, estuvieron ellas.
+    </h2>
+
+    <p style="text-align:justify;"
+       data-es="Pioneer 10 fue la primera misión de NASA dirigida a los planetas exteriores. Pioneer 11 tomó el camino después y se convirtió en la primera nave espacial en estudiar Saturno de cerca."
+       data-en="Pioneer 10 was NASA's first mission to the outer planets. Pioneer 11 followed and became the first spacecraft to study Saturn up close.">
+      Pioneer 10 fue la primera misión de NASA dirigida a los planetas
+      exteriores. Pioneer 11 tomó el camino después y se convirtió en la
+      primera nave espacial en estudiar Saturno de cerca.
+    </p>
+
+    <div class="grid">
+
+      <div>
+        <span class="small">PIONEER 10</span>
+        <div class="stat">1972</div>
+        <span class="small"
+              data-es="LANZAMIENTO"
+              data-en="LAUNCH">
+          LANZAMIENTO
+        </span>
+      </div>
+
+      <div>
+        <span class="small">PIONEER 11</span>
+        <div class="stat">1973</div>
+        <span class="small"
+              data-es="LANZAMIENTO"
+              data-en="LAUNCH">
+          LANZAMIENTO
+        </span>
+      </div>
+
+      <div>
+        <span class="small"
+              data-es="PRIMER DESTINO"
+              data-en="FIRST TARGET">
+          PRIMER DESTINO
+        </span>
+        <div class="stat">JUPITER</div>
+      </div>
+
+      <div>
+        <span class="small"
+              data-es="PRIMER SOBREVUELO"
+              data-en="FIRST FLYBY">
+          PRIMER SOBREVUELO
+        </span>
+        <div class="stat">SATURN</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="container" style="width:100%;padding-bottom:10px;">
+
+    <div class="museum-intro">
+
+      <span class="museum-label"
+            data-es="SALA 01 // ARCHIVO FOTOGRÁFICO"
+            data-en="ROOM 01 // PHOTOGRAPHIC ARCHIVE">
+        SALA 01 // ARCHIVO FOTOGRÁFICO
+      </span>
+
+      <h2 data-es="Las primeras imágenes del territorio exterior"
+          data-en="The first images from the outer worlds">
+        Las primeras imágenes del territorio exterior
+      </h2>
+
+      <p data-es="Pioneer no solo llegó primero. También nos mostró mundos que hasta entonces solo podíamos observar desde la Tierra."
+         data-en="Pioneer did not simply arrive first. It showed us worlds that, until then, we could only observe from Earth.">
+        Pioneer no solo llegó primero. También nos mostró mundos que hasta
+        entonces solo podíamos observar desde la Tierra.
+      </p>
+
+    </div>
+
+    <div class="museum-grid">
+
+      <article class="museum-piece featured">
+
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/6/668761main_ac73-9341-1.jpg?fit=crop&w=1800&h=1100"
+          alt="Pioneer 10 observations of Jupiter">
+
+        <div class="museum-caption">
+
+          <div class="museum-code">
+            <span>PIONEER 10 // JUPITER</span>
+            <span>1973</span>
+          </div>
+
+          <h3 data-es="Júpiter por primera vez"
+              data-en="Jupiter, for the first time">
+            Júpiter por primera vez
+          </h3>
+
+          <p data-es="Pioneer 10 realizó el primer sobrevuelo cercano de Júpiter por una nave espacial humana. Durante el encuentro estudió su atmósfera, magnetosfera y cinturones de radiación."
+             data-en="Pioneer 10 made the first close flyby of Jupiter by a human-made spacecraft. During the encounter it studied the planet's atmosphere, magnetosphere and radiation belts.">
+            Pioneer 10 realizó el primer sobrevuelo cercano de Júpiter por una
+            nave espacial humana. Durante el encuentro estudió su atmósfera,
+            magnetosfera y cinturones de radiación.
+          </p>
+
+        </div>
+      </article>
+
+      <article class="museum-piece">
+
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/7/739460main_ac79-9107.3-1.jpg?fit=crop&w=1200&h=900"
+          alt="Pioneer 11 Saturn image">
+
+        <div class="museum-caption">
+
+          <div class="museum-code">
+            <span>PIONEER 11 // SATURN</span>
+            <span>1979</span>
+          </div>
+
+          <h3 data-es="La llegada a Saturno"
+              data-en="Arrival at Saturn">
+            La llegada a Saturno
+          </h3>
+
+          <p data-es="Pioneer 11 fue la primera nave espacial en realizar un sobrevuelo de Saturno y tomó las primeras imágenes cercanas del planeta."
+             data-en="Pioneer 11 was the first spacecraft to fly past Saturn and returned the first close-up views of the planet.">
+            Pioneer 11 fue la primera nave espacial en realizar un sobrevuelo
+            de Saturno y tomó las primeras imágenes cercanas del planeta.
+          </p>
+
+        </div>
+      </article>
+
+      <article class="museum-piece">
+
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/o/pioneer_family-1.jpg?fit=crop&w=1200&h=900"
+          alt="Pioneer family portrait">
+
+        <div class="museum-caption">
+
+          <div class="museum-code">
+            <span>PIONEER PROGRAM</span>
+            <span>1982</span>
+          </div>
+
+          <h3 data-es="Una familia de exploradores"
+              data-en="A family of explorers">
+            Una familia de exploradores
+          </h3>
+
+          <p data-es="Pioneer 10 y 11 formaron parte de una familia mucho mayor de misiones que ayudaron a desarrollar la exploración robótica del espacio."
+             data-en="Pioneer 10 and 11 were part of a much larger family of missions that helped develop robotic exploration of space.">
+            Pioneer 10 y 11 formaron parte de una familia mucho mayor de
+            misiones que ayudaron a desarrollar la exploración robótica
+            del espacio.
+          </p>
+
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="PIONEER 10"
+          data-en="PIONEER 10">
+      PIONEER 10
+    </span>
+
+    <h2 data-es="La primera en abrir el camino"
+        data-en="The first to open the road">
+      La primera en abrir el camino
+    </h2>
+
+    <p style="text-align:justify;"
+       data-es="Pioneer 10 fue lanzada el 2 de marzo de 1972. En julio de ese año se convirtió en la primera nave espacial en atravesar el cinturón principal de asteroides. En diciembre llegó a Júpiter y realizó el primer sobrevuelo cercano de ese planeta."
+       data-en="Pioneer 10 launched on March 2, 1972. In July of that year it became the first spacecraft to cross the main asteroid belt. In December it reached Jupiter and made the first close flyby of the planet.">
+      Pioneer 10 fue lanzada el 2 de marzo de 1972. En julio de ese año se
+      convirtió en la primera nave espacial en atravesar el cinturón principal
+      de asteroides. En diciembre llegó a Júpiter y realizó el primer
+      sobrevuelo cercano de ese planeta.
+    </p>
+
+    <p style="text-align:justify;"
+       data-es="En 1983 cruzó la órbita de Neptuno, convirtiéndose en el primer objeto fabricado por seres humanos en llegar más allá de la órbita del planeta más exterior conocido en aquel momento."
+       data-en="In 1983 it crossed Neptune's orbit, becoming the first human-made object to travel beyond the orbit of the outermost known planet at the time.">
+      En 1983 cruzó la órbita de Neptuno, convirtiéndose en el primer objeto
+      fabricado por seres humanos en llegar más allá de la órbita del planeta
+      más exterior conocido en aquel momento.
+    </p>
+
+  </section>
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="PIONEER 11"
+          data-en="PIONEER 11">
+      PIONEER 11
+    </span>
+
+    <h2 data-es="La maniobra que llevó a Saturno"
+        data-en="The maneuver that took it to Saturn">
+      La maniobra que llevó a Saturno
+    </h2>
+
+    <p style="text-align:justify;"
+       data-es="Pioneer 11 fue lanzada el 6 de abril de 1973. Después de su encuentro con Júpiter, utilizó la enorme gravedad del planeta para modificar su trayectoria y dirigirse hacia Saturno."
+       data-en="Pioneer 11 launched on April 6, 1973. After its encounter with Jupiter, it used the planet's enormous gravity to change its trajectory and head toward Saturn.">
+      Pioneer 11 fue lanzada el 6 de abril de 1973. Después de su encuentro
+      con Júpiter, utilizó la enorme gravedad del planeta para modificar
+      su trayectoria y dirigirse hacia Saturno.
+    </p>
+
+    <p style="text-align:justify;"
+       data-es="El 1 de septiembre de 1979 pasó cerca de Saturno. Sus instrumentos estudiaron el planeta, sus anillos, su campo magnético y su luna Titán. También descubrió un nuevo anillo, conocido como anillo F, y dos pequeñas lunas."
+       data-en="On September 1, 1979, it flew close to Saturn. Its instruments studied the planet, its rings, magnetic field and moon Titan. It also discovered a new ring, known as the F ring, and two small moons.">
+      El 1 de septiembre de 1979 pasó cerca de Saturno. Sus instrumentos
+      estudiaron el planeta, sus anillos, su campo magnético y su luna Titán.
+      También descubrió un nuevo anillo, conocido como anillo F, y dos
+      pequeñas lunas.
+    </p>
+
+  </section>
+
+  <section class="signal-section">
+
+    <div class="signal-title"
+         data-es="ARCHIVO DE COMUNICACIONES // ÚLTIMA SEÑAL"
+         data-en="COMMUNICATIONS ARCHIVE // LAST SIGNAL">
+      ARCHIVO DE COMUNICACIONES // ÚLTIMA SEÑAL
+    </div>
+
+    <h2 style="text-align:center;"
+        data-es="Cuando la Tierra dejó de escuchar"
+        data-en="When Earth stopped listening">
+      Cuando la Tierra dejó de escuchar
+    </h2>
+
+    <div class="signal-grid">
+
+      <div class="signal-card">
+
+        <h3>PIONEER 10</h3>
+
+        <div class="signal-date">23 JAN 2003</div>
+
+        <div class="signal-state"
+             data-es="ÚLTIMA SEÑAL RECIBIDA"
+             data-en="LAST SIGNAL RECEIVED">
+          ÚLTIMA SEÑAL RECIBIDA
+        </div>
+
+        <div class="signal-line"></div>
+
+        <p data-es="La señal fue extremadamente débil. La degradación de su fuente de energía nuclear ya no permitía mantener el transmisor con suficiente potencia."
+           data-en="The signal was extremely weak. The degradation of its nuclear power source no longer allowed the transmitter to operate with enough power.">
+          La señal fue extremadamente débil. La degradación de su fuente de
+          energía nuclear ya no permitía mantener el transmisor con suficiente
+          potencia.
+        </p>
+
+      </div>
+
+      <div class="signal-card">
+
+        <h3>PIONEER 11</h3>
+
+        <div class="signal-date">30 SEP 1995</div>
+
+        <div class="signal-state"
+             data-es="ÚLTIMO CONTACTO"
+             data-en="LAST CONTACT">
+          ÚLTIMO CONTACTO
+        </div>
+
+        <div class="signal-line"></div>
+
+        <p data-es="La última comunicación con Pioneer 11 ocurrió cuando la Tierra dejó de estar dentro de la orientación de su antena. NASA recibió algunos datos de ingeniería el 24 de noviembre de 1995."
+           data-en="The last contact with Pioneer 11 occurred as Earth moved out of the spacecraft's antenna view. NASA received some engineering data on November 24, 1995.">
+          La última comunicación con Pioneer 11 ocurrió cuando la Tierra dejó
+          de estar dentro de la orientación de su antena. NASA recibió algunos
+          datos de ingeniería el 24 de noviembre de 1995.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <span class="badge"
+          data-es="LA ÚLTIMA RUTA"
+          data-en="THE FINAL ROUTE">
+      LA ÚLTIMA RUTA
+    </span>
+
+    <h2 data-es="No regresaron. Tampoco se detuvieron."
+        data-en="They did not return. They did not stop.">
+      No regresaron. Tampoco se detuvieron.
+    </h2>
+
+    <p style="text-align:justify;"
+       data-es="La pérdida de comunicación no significa que las sondas hayan quedado flotando en un punto. Continúan siguiendo trayectorias determinadas por su velocidad y por la gravedad del Sol y de otros cuerpos."
+       data-en="The loss of communication does not mean the probes stopped in place. They continue along trajectories determined by their velocity and the gravity of the Sun and other bodies.">
+      La pérdida de comunicación no significa que las sondas hayan quedado
+      flotando en un punto. Continúan siguiendo trayectorias determinadas por
+      su velocidad y por la gravedad del Sol y de otros cuerpos.
+    </p>
+
+    <div class="trajectory">
+      <div class="trajectory-path"></div>
+      <div class="trajectory-center"></div>
+      <div class="trajectory-path reverse"></div>
+    </div>
+
+    <div class="destination-grid">
+
+      <div class="destination">
+
+        <div class="star">★</div>
+
+        <h3>PIONEER 10 → ALDEBARAN</h3>
+
+        <div class="years"
+             data-es="≈ 2 MILLONES DE AÑOS"
+             data-en="≈ 2 MILLION YEARS">
+          ≈ 2 MILLONES DE AÑOS
+        </div>
+
+        <p data-es="Viaja generalmente en dirección a Aldebarán, la estrella que forma el ojo de la constelación de Tauro."
+           data-en="It is generally heading toward Aldebaran, the star that forms the eye of the constellation Taurus.">
+          Viaja generalmente en dirección a Aldebarán, la estrella que forma
+          el ojo de la constelación de Tauro.
+        </p>
+
+      </div>
+
+      <div class="destination">
+
+        <div class="star">★</div>
+
+        <h3>PIONEER 11 → AQUILA</h3>
+
+        <div class="years"
+             data-es="≈ 4 MILLONES DE AÑOS"
+             data-en="≈ 4 MILLION YEARS">
+          ≈ 4 MILLONES DE AÑOS
+        </div>
+
+        <p data-es="Se dirige hacia la región de la constelación de Aquila y pasará cerca de una de sus estrellas en unos cuatro millones de años."
+           data-en="It is heading toward the region of the constellation Aquila and will pass near one of its stars in about four million years.">
+          Se dirige hacia la región de la constelación de Aquila y pasará cerca
+          de una de sus estrellas en unos cuatro millones de años.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="plaque-room">
+
+    <div class="room-label"
+         data-es="SALA 02 // MENSAJE DE LA TIERRA"
+         data-en="ROOM 02 // MESSAGE FROM EARTH">
+      SALA 02 // MENSAJE DE LA TIERRA
+    </div>
+
+    <h2 data-es="La primera tarjeta de presentación de la humanidad"
+        data-en="Humanity's first cosmic calling card">
+      La primera tarjeta de presentación de la humanidad
+    </h2>
+
+    <p data-es="Antes del Golden Record de las Voyager existió esta pequeña placa de aluminio. Viajó con Pioneer 10 y Pioneer 11 hacia un futuro que nadie podía imaginar."
+       data-en="Before Voyager's Golden Record, there was this small aluminum plaque. It traveled with Pioneer 10 and Pioneer 11 toward a future nobody could imagine.">
+      Antes del Golden Record de las Voyager existió esta pequeña placa de
+      aluminio. Viajó con Pioneer 10 y Pioneer 11 hacia un futuro que nadie
+      podía imaginar.
+    </p>
+
+    <img
+      src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/o/pioneer_plaque_P10_Closeup.png?fit=crop&w=1400&h=1000"
+      alt="Pioneer plaque">
+
+    <p data-es="La placa fue concebida principalmente por Carl Sagan, Frank Drake y Linda Salzman Sagan. Intentaba comunicar quiénes éramos, de dónde venía la nave y dónde estaba nuestro planeta."
+       data-en="The plaque was primarily conceived by Carl Sagan, Frank Drake and Linda Salzman Sagan. It attempted to communicate who we were, where the spacecraft came from and where our planet was located.">
+      La placa fue concebida principalmente por Carl Sagan, Frank Drake y
+      Linda Salzman Sagan. Intentaba comunicar quiénes éramos, de dónde venía
+      la nave y dónde estaba nuestro planeta.
+    </p>
+
+    <div class="plaque-details">
+
+      <div class="plaque-detail">
+        <strong>01</strong>
+        <span data-es="ÁTOMO DE HIDRÓGENO"
+              data-en="HYDROGEN ATOM">
+          ÁTOMO DE HIDRÓGENO
+        </span>
+      </div>
+
+      <div class="plaque-detail">
+        <strong>02</strong>
+        <span data-es="FIGURAS HUMANAS"
+              data-en="HUMAN FIGURES">
+          FIGURAS HUMANAS
+        </span>
+      </div>
+
+      <div class="plaque-detail">
+        <strong>03</strong>
+        <span data-es="SISTEMA SOLAR"
+              data-en="SOLAR SYSTEM">
+          SISTEMA SOLAR
+        </span>
+      </div>
+
+      <div class="plaque-detail">
+        <strong>04</strong>
+        <span data-es="MAPA DE PÚLSARES"
+              data-en="PULSAR MAP">
+          MAPA DE PÚLSARES
+        </span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="ghost">
+
+    <div class="ghost-word"
+         data-es="ARCHIVO // ESTADO ACTUAL"
+         data-en="ARCHIVE // CURRENT STATUS">
+      ARCHIVO // ESTADO ACTUAL
+    </div>
+
+    <h2>GALACTIC <span>GHOST SHIPS</span></h2>
+
+    <p data-es="NASA describe a Pioneer 10 y Pioneer 11 como naves fantasma galácticas: ya no transmiten ciencia a la Tierra, pero continúan avanzando silenciosamente por el espacio."
+       data-en="NASA describes Pioneer 10 and Pioneer 11 as galactic ghost ships: they no longer transmit science back to Earth, but they continue silently traveling through space.">
+      NASA describe a Pioneer 10 y Pioneer 11 como naves fantasma galácticas:
+      ya no transmiten ciencia a la Tierra, pero continúan avanzando
+      silenciosamente por el espacio.
+    </p>
+
+    <div class="archive">
+
+      <div class="archive-card">
+        <strong>PIONEER 10</strong>
+        <span data-es="SILENCIOSA DESDE 2003"
+              data-en="SILENT SINCE 2003">
+          SILENCIOSA DESDE 2003
+        </span>
+      </div>
+
+      <div class="archive-card">
+        <strong>PIONEER 11</strong>
+        <span data-es="SIN CONTACTO DESDE 1995"
+              data-en="NO CONTACT SINCE 1995">
+          SIN CONTACTO DESDE 1995
+        </span>
+      </div>
+
+      <div class="archive-card">
+        <strong>TRAJECTORY</strong>
+        <span data-es="EL VIAJE CONTINÚA"
+              data-en="THE JOURNEY CONTINUES">
+          EL VIAJE CONTINÚA
+        </span>
+      </div>
+
+    </div>
+
+    <div class="ghost-route">
+      <div class="route-point">EARTH</div>
+      <div class="route-line"></div>
+      <div class="route-point">JUPITER</div>
+      <div class="route-line"></div>
+      <div class="route-point">SATURN</div>
+      <div class="route-line"></div>
+      <div class="route-point">DEEP SPACE</div>
+    </div>
+
+  </section>
+
+  <section class="card challenge">
+
+    <span class="badge"
+          data-es="MISSION CHALLENGE"
+          data-en="MISSION CHALLENGE">
+      MISSION CHALLENGE
+    </span>
+
+    <h2 data-es="TRACE THE GHOST SHIP"
+        data-en="TRACE THE GHOST SHIP">
+      TRACE THE GHOST SHIP
+    </h2>
+
+    <p class="challenge-intro"
+       data-es="Reconstruye el viaje. En cada estación seleccioná el acontecimiento correcto para continuar la trayectoria de las Pioneer."
+       data-en="Reconstruct the journey. At each station, select the correct event to continue the Pioneer trajectory.">
+      Reconstruye el viaje. En cada estación seleccioná el acontecimiento
+      correcto para continuar la trayectoria de las Pioneer.
+    </p>
+
+    <div class="challenge-progress">
+      <span id="challengeProgress"></span>
+    </div>
+
+    <div class="challenge-case">
+
+      <div class="case-number" id="caseNumber">CASE 01 / 04</div>
+
+      <h3 id="caseTitle">PIONEER 10</h3>
+
+      <p id="caseQuestion">
+        ¿Cuál fue el primer gran desafío de Pioneer 10?
+      </p>
+
+      <div class="case-options" id="caseOptions"></div>
+
+      <div class="case-result" id="caseResult"></div>
+
+    </div>
+
+  </section>
+
+  <section class="final-message">
+
+    <span class="badge"
+          data-es="REGISTRO FINAL"
+          data-en="FINAL RECORD">
+      REGISTRO FINAL
+    </span>
+
+    <h2>
+      <span data-es="LA SEÑAL TERMINÓ."
+            data-en="THE SIGNAL ENDED.">
+        LA SEÑAL TERMINÓ.
+      </span>
+      <br>
+      <span data-es="EL VIAJE NO."
+            data-en="THE JOURNEY DIDN'T.">
+        EL VIAJE NO.
+      </span>
+    </h2>
+
+    <p data-es="Pioneer 10 y Pioneer 11 fueron diseñadas para durar poco más de lo necesario para alcanzar sus primeros objetivos. Terminaron haciendo mucho más. Fueron las primeras en abrir un camino que después seguirían otras sondas hacia los confines del Sistema Solar."
+       data-en="Pioneer 10 and Pioneer 11 were designed to last little more than the time needed to reach their first objectives. They ended up doing much more. They were the first to open a path that later spacecraft would follow toward the edges of the solar system.">
+      Pioneer 10 y Pioneer 11 fueron diseñadas para durar poco más de lo
+      necesario para alcanzar sus primeros objetivos. Terminaron haciendo
+      mucho más. Fueron las primeras en abrir un camino que después seguirían
+      otras sondas hacia los confines del Sistema Solar.
+    </p>
+
+    <p data-es="Y mientras nosotros seguimos hablando de ellas, ellas continúan alejándose."
+       data-en="And while we are still talking about them, they continue moving away.">
+      Y mientras nosotros seguimos hablando de ellas, ellas continúan alejándose.
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+  NASA // MISSION CONTROL
+  <br>
+  <span class="small"
+        data-es="Proyecto educativo sobre exploración espacial"
+        data-en="Educational project about space exploration">
+    Proyecto educativo sobre exploración espacial
+  </span>
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+const casesES = [
+  {
+    title:"PIONEER 10",
+    question:"¿Qué encontró Pioneer 10 antes de llegar a Júpiter?",
+    options:[
+      "El cinturón de asteroides",
+      "Los anillos de Saturno",
+      "La superficie de Marte",
+      "La Gran Mancha Roja"
+    ],
+    correct:0
+  },
+  {
+    title:"PIONEER 10",
+    question:"¿Qué planeta visitó primero?",
+    options:[
+      "Saturno",
+      "Júpiter",
+      "Urano",
+      "Neptuno"
+    ],
+    correct:1
+  },
+  {
+    title:"PIONEER 11",
+    question:"¿Qué utilizó Pioneer 11 para cambiar su trayectoria hacia Saturno?",
+    options:[
+      "Un nuevo cohete",
+      "La gravedad de Júpiter",
+      "Una vela solar",
+      "Un motor de plasma"
+    ],
+    correct:1
+  },
+  {
+    title:"PIONEER 11",
+    question:"¿Qué ocurrió el 1 de septiembre de 1979?",
+    options:[
+      "Llegó a Marte",
+      "Cruzó el cinturón de asteroides",
+      "Sobrevoló Saturno",
+      "Envió la primera señal desde Júpiter"
+    ],
+    correct:2
+  }
+];
+
+const casesEN = [
+  {
+    title:"PIONEER 10",
+    question:"What did Pioneer 10 encounter before reaching Jupiter?",
+    options:[
+      "The asteroid belt",
+      "Saturn's rings",
+      "The surface of Mars",
+      "The Great Red Spot"
+    ],
+    correct:0
+  },
+  {
+    title:"PIONEER 10",
+    question:"Which planet did it visit first?",
+    options:[
+      "Saturn",
+      "Jupiter",
+      "Uranus",
+      "Neptune"
+    ],
+    correct:1
+  },
+  {
+    title:"PIONEER 11",
+    question:"What did Pioneer 11 use to change its trajectory toward Saturn?",
+    options:[
+      "A new rocket",
+      "Jupiter's gravity",
+      "A solar sail",
+      "A plasma engine"
+    ],
+    correct:1
+  },
+  {
+    title:"PIONEER 11",
+    question:"What happened on September 1, 1979?",
+    options:[
+      "It reached Mars",
+      "It crossed the asteroid belt",
+      "It flew past Saturn",
+      "It sent its first signal from Jupiter"
+    ],
+    correct:2
+  }
+];
+
+let currentCase = 0;
+let score = 0;
+
+function currentLanguage(){
+  return localStorage.getItem("nasaLang") === "en" ? "en" : "es";
+}
+
+function loadCase(){
+  const language = currentLanguage();
+  const data = language === "en" ? casesEN : casesES;
+
+  const item = data[currentCase];
+
+  document.getElementById("caseNumber").textContent =
+    language === "en"
+    ? `CASE ${String(currentCase + 1).padStart(2,"0")} / 04`
+    : `CASO ${String(currentCase + 1).padStart(2,"0")} / 04`;
+
+  document.getElementById("caseTitle").textContent = item.title;
+  document.getElementById("caseQuestion").textContent = item.question;
+
+  const options = document.getElementById("caseOptions");
+  options.innerHTML = "";
+
+  item.options.forEach((option,index)=>{
+    const button = document.createElement("button");
+    button.textContent = option;
+    button.addEventListener("click",()=>answerCase(index));
+    options.appendChild(button);
+  });
+
+  document.getElementById("caseResult").textContent = "";
+
+  document.getElementById("challengeProgress").style.width =
+    `${(currentCase / data.length) * 100}%`;
+}
+
+function answerCase(index){
+  const language = currentLanguage();
+  const data = language === "en" ? casesEN : casesES;
+  const item = data[currentCase];
+  const result = document.getElementById("caseResult");
+
+  if(index === item.correct){
+    score++;
+
+    result.textContent =
+      language === "en"
+      ? "✓ CORRECT. The trajectory continues."
+      : "✓ CORRECTO. La trayectoria continúa.";
+
+    result.style.color = "var(--green)";
+
+    setTimeout(()=>{
+      currentCase++;
+
+      if(currentCase >= data.length){
+        document.getElementById("challengeProgress").style.width = "100%";
+
+        result.textContent =
+          language === "en"
+          ? `MISSION COMPLETE — ${score}/4 correct.`
+          : `MISIÓN COMPLETADA — ${score}/4 correctas.`;
+
+        document.getElementById("caseOptions").innerHTML = "";
+        document.getElementById("caseQuestion").textContent =
+          language === "en"
+          ? "You reconstructed the Pioneer journey."
+          : "Reconstruiste el viaje de las Pioneer.";
+
+        return;
+      }
+
+      loadCase();
+    },650);
+
+  }else{
+    result.textContent =
+      language === "en"
+      ? "✕ Incorrect. Check the mission archive and try again."
+      : "✕ Incorrecto. Revisá el archivo de misión e intentá nuevamente.";
+
+    result.style.color = "var(--red)";
+  }
+}
+
+document.getElementById("langButton").addEventListener("click",()=>{
+  setTimeout(loadCase,100);
+});
+
+loadCase();
+</script>
+
+</body>
+</html>
