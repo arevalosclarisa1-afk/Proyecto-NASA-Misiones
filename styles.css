@@ -1,0 +1,732 @@
+:root{
+  --bg:#050b12;
+  --bg2:#08131d;
+  --panel:#0b1823;
+  --panel2:#0e202d;
+  --line:#1c3b4b;
+
+  --text:#edf7fa;
+  --muted:#8fa8b5;
+
+  --cyan:#39d9ff;
+  --blue:#168dcc;
+  --green:#65e6a5;
+  --yellow:#f4d35e;
+  --red:#ff5c5c;
+
+  --glow:0 0 22px rgba(57,217,255,.12);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
+
+  color:var(--text);
+  background:
+    linear-gradient(rgba(5,11,18,.94),rgba(5,11,18,.98)),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(255,255,255,.012) 4px
+    );
+
+  line-height:1.65;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+
+  padding:12px 5%;
+
+  background:rgba(5,11,18,.96);
+
+  border-bottom:1px solid var(--line);
+
+  box-shadow:
+    0 4px 25px rgba(0,0,0,.4);
+}
+
+.logo{
+  margin-right:auto;
+
+  font-weight:900;
+  letter-spacing:2px;
+
+  color:var(--cyan);
+
+  text-transform:uppercase;
+}
+
+.logo::before{
+  content:"● ";
+  color:var(--green);
+}
+
+.nav a,
+.lang{
+  padding:7px 12px;
+
+  border:1px solid var(--line);
+
+  border-radius:4px;
+
+  color:var(--muted);
+
+  background:rgba(255,255,255,.025);
+
+  font-size:.82rem;
+
+  letter-spacing:.5px;
+
+  transition:.2s;
+}
+
+.nav a:hover,
+.lang:hover{
+  color:var(--cyan);
+  border-color:var(--cyan);
+
+  background:rgba(57,217,255,.06);
+
+  box-shadow:var(--glow);
+}
+
+.lang{
+  cursor:pointer;
+}
+
+.hero{
+  position:relative;
+
+  min-height:62vh;
+
+  display:grid;
+  place-items:center;
+
+  text-align:left;
+
+  padding:80px 6%;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 70% 40%,
+      rgba(22,141,204,.16),
+      transparent 35%
+    ),
+    linear-gradient(
+      90deg,
+      #050b12 0%,
+      #07131d 60%,
+      #081923 100%
+    );
+
+  border-bottom:1px solid var(--line);
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.8%,
+      rgba(57,217,255,.04) 50%,
+      transparent 50.2%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 49.8%,
+      rgba(57,217,255,.04) 50%,
+      transparent 50.2%
+    );
+
+  background-size:80px 80px;
+
+  pointer-events:none;
+}
+
+.hero-inner{
+  width:min(1100px,100%);
+
+  position:relative;
+  z-index:2;
+}
+
+.badge{
+  display:inline-block;
+
+  padding:5px 10px;
+
+  border:1px solid var(--cyan);
+
+  border-radius:3px;
+
+  color:var(--cyan);
+
+  background:rgba(57,217,255,.06);
+
+  font-weight:700;
+
+  font-size:.76rem;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+.badge::before{
+  content:"MISSION // ";
+  color:var(--muted);
+}
+
+h1{
+  font-size:clamp(2.8rem,8vw,6rem);
+
+  line-height:.95;
+
+  margin:18px 0;
+
+  letter-spacing:-2px;
+
+  text-transform:uppercase;
+
+  text-shadow:
+    0 0 30px rgba(57,217,255,.12);
+}
+
+h2{
+  font-size:clamp(1.7rem,4vw,2.7rem);
+
+  color:var(--cyan);
+
+  line-height:1.1;
+
+  text-transform:uppercase;
+
+  letter-spacing:.5px;
+}
+
+h3{
+  color:var(--yellow);
+
+  text-transform:uppercase;
+
+  letter-spacing:.7px;
+}
+
+.lead{
+  font-size:1.08rem;
+
+  color:var(--muted);
+
+  max-width:800px;
+
+  margin:0 0 28px;
+}
+
+.btn{
+  display:inline-block;
+
+  margin:7px 7px 7px 0;
+
+  padding:11px 18px;
+
+  border-radius:3px;
+
+  background:var(--cyan);
+
+  color:#031018;
+
+  font-weight:900;
+
+  border:1px solid var(--cyan);
+
+  cursor:pointer;
+
+  text-transform:uppercase;
+
+  letter-spacing:.6px;
+
+  box-shadow:0 0 18px rgba(57,217,255,.12);
+
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 0 25px rgba(57,217,255,.3);
+}
+
+.btn.alt{
+  background:transparent;
+
+  color:var(--cyan);
+
+  border:1px solid var(--cyan);
+}
+
+.container{
+  width:min(1100px,90%);
+
+  margin:auto;
+
+  padding:60px 0;
+}
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+  gap:14px;
+}
+
+.card{
+  position:relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11,24,35,.98),
+      rgba(8,20,30,.98)
+    );
+
+  border:1px solid var(--line);
+
+  border-radius:4px;
+
+  padding:24px;
+
+  box-shadow:var(--glow);
+
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:35px;
+  height:2px;
+
+  background:var(--cyan);
+}
+
+.card:hover{
+  border-color:#286276;
+
+  box-shadow:
+    0 0 28px rgba(57,217,255,.08);
+
+  transform:translateY(-2px);
+
+  transition:.2s;
+}
+
+.card strong{
+  color:var(--cyan);
+}
+
+.stat{
+  font-size:2rem;
+
+  font-weight:900;
+
+  color:var(--cyan);
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  letter-spacing:1px;
+}
+
+.stat::after{
+  content:"";
+}
+
+.timeline{
+  border-left:2px solid var(--line);
+
+  padding-left:28px;
+}
+
+.timeline article{
+  margin:0 0 32px;
+
+  position:relative;
+}
+
+.timeline article:before{
+  content:"";
+
+  position:absolute;
+
+  left:-36px;
+
+  top:7px;
+
+  width:10px;
+  height:10px;
+
+  background:var(--cyan);
+
+  border:2px solid var(--bg);
+
+  border-radius:50%;
+
+  box-shadow:
+    0 0 10px rgba(57,217,255,.5);
+}
+
+.callout{
+  padding:22px;
+
+  border-radius:4px;
+
+  margin:25px 0;
+
+  background:
+    rgba(101,230,165,.035);
+
+  border:1px solid rgba(101,230,165,.35);
+
+  position:relative;
+}
+
+.callout::before{
+  content:"SYSTEM NOTE";
+
+  display:block;
+
+  margin-bottom:8px;
+
+  color:var(--green);
+
+  font-size:.7rem;
+
+  font-weight:900;
+
+  letter-spacing:1.5px;
+}
+
+.moral{
+  text-align:center;
+
+  padding:50px 25px;
+
+  border-radius:4px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(57,217,255,.06),
+      rgba(22,141,204,.03)
+    );
+
+  border:1px solid var(--line);
+}
+
+.moral h2{
+  color:var(--text);
+}
+
+.quiz{
+  margin-top:30px;
+
+  border-color:#31566a;
+}
+
+.quiz::before{
+  background:var(--yellow);
+}
+
+.question{
+  margin-bottom:22px;
+}
+
+.question button{
+  display:block;
+
+  width:100%;
+
+  text-align:left;
+
+  margin:8px 0;
+
+  padding:13px 15px;
+
+  border-radius:3px;
+
+  border:1px solid var(--line);
+
+  background:#07131d;
+
+  color:var(--text);
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.question button:hover{
+  border-color:var(--cyan);
+
+  background:rgba(57,217,255,.05);
+
+  color:var(--cyan);
+}
+
+.result{
+  font-weight:900;
+
+  margin-top:15px;
+
+  color:var(--green);
+}
+
+footer{
+  text-align:center;
+
+  padding:35px 5%;
+
+  color:var(--muted);
+
+  border-top:1px solid var(--line);
+
+  background:#04090e;
+
+  font-size:.85rem;
+}
+
+.small{
+  font-size:.85rem;
+
+  color:var(--muted);
+}
+
+@media(max-width:650px){
+
+  .nav{
+    position:relative;
+  }
+
+  .nav a{
+    font-size:.78rem;
+  }
+
+  .hero{
+    min-height:55vh;
+
+    padding:60px 5%;
+  }
+
+  h1{
+    letter-spacing:-1px;
+  }
+
+  .container{
+    width:92%;
+  }
+
+}
+
+.mission-photo {
+  margin: 30px 0;
+  border: 1px solid var(--line);
+  background: #02070c;
+  box-shadow: var(--glow);
+  overflow: hidden;
+}
+
+.mission-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: cover;
+}
+
+.photo-info {
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-family: monospace;
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.photo-info strong {
+  color: var(--cyan);
+}
+
+.photo-credit {
+  color: var(--muted);
+  font-size: .75rem;
+  margin-top: 8px;
+}
+
+.photo-wide img {
+  max-height: 420px;
+}
+
+.photo-highlight {
+  border-color: var(--cyan);
+  box-shadow: 0 0 30px rgba(57,217,255,.12);
+}
+
+.photo-highlight img {
+  max-height: 700px;
+  object-fit: contain;
+}
+
+@media(max-width:650px){
+
+  .mission-photo img {
+    max-height: 450px;
+  }
+
+  .photo-info {
+    font-size: .7rem;
+  }
+
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  text-align: left;
+  padding: 80px 6%;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,11,18,.96) 0%,
+      rgba(5,11,18,.82) 38%,
+      rgba(5,11,18,.50) 68%,
+      rgba(5,11,18,.78) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(5,11,18,.18) 0%,
+      rgba(5,11,18,.35) 52%,
+      rgba(5,11,18,.98) 100%
+    ),
+    url("https://mars.nasa.gov/system/resources/detail_files/22356_MER_twins_white_cyc-web.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(57,217,255,.025) 0,
+      rgba(57,217,255,.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(57,217,255,.018) 0,
+      rgba(57,217,255,.018) 1px,
+      transparent 1px,
+      transparent 60px
+    );
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "MARS SURFACE // ROVER OPERATIONS";
+  position: absolute;
+  right: 5%;
+  bottom: 28px;
+  color: rgba(57,217,255,.5);
+  font-family: monospace;
+  font-size: .72rem;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(1000px, 100%);
+  padding: 30px;
+  border-left: 2px solid var(--cyan);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,11,18,.76),
+      rgba(5,11,18,.32),
+      transparent
+    );
+}
+
+.hero h1 {
+  text-shadow:
+    0 0 25px rgba(57,217,255,.18),
+    0 2px 12px rgba(0,0,0,.9);
+}
+
+@media(max-width:650px) {
+  .hero {
+    min-height: 65vh;
+    background-attachment: scroll;
+    background-position: center;
+  }
+
+  .hero-inner {
+    padding: 22px;
+  }
+
+  .hero::after {
+    display: none;
+  }
+}
